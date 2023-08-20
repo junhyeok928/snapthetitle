@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-const Contact = () => {
+const Booking = () => {
     return (
         <section className="text-gray-600 body-font relative">
             <div className="container px-5 py-24 mx-auto">
@@ -44,4 +44,4 @@ const Contact = () => {
     )
 }
 
-export default Contact;
+export default Booking;

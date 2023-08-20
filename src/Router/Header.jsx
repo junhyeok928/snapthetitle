@@ -1,35 +1,35 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from '../img/logo.png';
 import classNames from "classnames";
-import {useState} from "react";
+import { useState } from "react";
 
 const Header = () => {
-    const [menuToggle, setMenuToggle] = useState(false)
+    const [menuToggle, setMenuToggle] = useState(false);
     return (
         <header className="inset-x-0 top-0 z-50 left-0 bg-white text-gray-700 body-font">
             {/* PC menu */}
             <div className="hidden md:flex container mx-auto flex flex-wrap p-5 flex-col md:flex-column items-center">
-                <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" to="/">
-                    <img alt="logo" src={logo} className="w-80 h-40 -mr-1" />
-                </Link>
+                {/*<Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" to="/">
+                    <img alt="logo" src={logo} className="w-40 h-16 -mr-1" />
+                </Link>*/}
                 <nav className="flex flex-wrap items-center text-base justify-center">
-                    <Link className="mr-12 hover:text-gray-900" to="/">
+                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/">
                         HOME
                     </Link>
-                    <Link className="mr-12 hover:text-gray-900" to="/about">
+                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/about">
                         ABOUT
                     </Link>
-                    <Link className="mr-12 hover:text-gray-900" to="/gallery">
+                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/gallery">
                         GALLERY
                     </Link>
-                    <Link className="mr-12 hover:text-gray-900" to="/product">
+                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/product">
                         PRODUCT
                     </Link>
-                    <Link className="mr-12 hover:text-gray-900" to="/notice">
+                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/notice">
                         NOTICE
                     </Link>
-                    <Link className="mr-12 hover:text-gray-900" to="/contact">
-                        CONTACT
+                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/booking">
+                        BOOKING
                     </Link>
                 </nav>
             </div>
@@ -93,12 +93,12 @@ const Header = () => {
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/notice">
                     NOTICE
                 </Link>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/contact">
-                    CONTACT
+                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/booking">
+                    BOOKING
                 </Link>
             </div>
         </header>
-    )
+    );
 }
 
 export default Header;

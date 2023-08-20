@@ -1,7 +1,10 @@
 module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ['NanumSquareRound', 'Helvetica', 'Arial', 'sans-serif'], // CustomFont는 폰트 패밀리 이름
+            },},
         screens: {
             'sm': '640px',
             // => @media (min-width: 640px) { ... }

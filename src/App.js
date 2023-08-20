@@ -5,7 +5,7 @@ import About from "./Components/About";
 import Gallery from "./Components/Gallery";
 import Product from "./Components/Product";
 import Notice from "./Components/Notice";
-import Contact from "./Components/Contact";
+import Booking from "./Components/Booking";
 import Footer from "./Router/Footer";
 
 const Router = () => {
@@ -18,7 +18,7 @@ const Router = () => {
               <Route path="/gallery" element={<Gallery/>} />
               <Route path="/product" element={<Product/>} />
               <Route path="/notice" element={<Notice/>} />
-              <Route path="/contact" element={<Contact/>} />
+              <Route path="/booking" element={<Booking/>} />
           </Routes>
           <Footer />
       </HashRouter>
