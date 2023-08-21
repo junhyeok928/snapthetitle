@@ -6,7 +6,7 @@ import img3 from '../img/3.jpg';
 const Home = () => {
     return (
         <section className="text-gray-600 body-font">
-            <div className="container mx-auto flex flex-wrap h-screen">
+            <div className="container mx-auto flex flex-wrap">
                 <div className="w-full flex flex-col items-center justify-center">
             {/*<div className="container px-5 py-24 mx-auto flex flex-wrap">*/}
                 <div className="lg:w-8/12 mx-auto">
