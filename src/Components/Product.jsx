@@ -1,5 +1,3 @@
-import {Link} from "react-router-dom";
-
 const Product = () => {
     return (
         <div className="bg-blue-500">
