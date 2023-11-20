@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
+import { Fade } from 'react-reveal';
 import logo from '../img/logo.png';
 import classNames from "classnames";
 import { useState } from "react";
 
 const Header = () => {
     const [menuToggle, setMenuToggle] = useState(false);
+
+    const handleMenuItemClick = () => {
+        // 메뉴 아이템 클릭 시 메뉴를 닫습니다.
+        setMenuToggle(false);
+    };
     return (
         <header className="inset-x-0 top-0 z-50 left-0 bg-white text-gray-700 body-font">
             {/* PC menu */}
@@ -35,9 +41,9 @@ const Header = () => {
             </div>
             {/* mobile menu */}
             <div className="md:hidden flex container mx-auto flex-wrap p-5 flex-row items-center justify-between">
-                <Link className="flex title-font font-medium items-center text-gray-900 md:mb-0" to="/">
+                {/*<Link className="flex title-font font-medium items-center text-gray-900 md:mb-0" to="/">
                     <img alt="logo" src={logo} className="w-30 h-10 -mr-1" />
-                </Link>
+                </Link>*/}
                 <div className="md:hidden flex items-center">
                     <button
                         onClick={() => setMenuToggle(!menuToggle)}
@@ -77,26 +83,28 @@ const Header = () => {
                 </div>
             </div>
             {/* mobile menu items */}
-            <div className={classNames("md:hidden", { hidden: !menuToggle })}>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/">
-                    HOME
-                </Link>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/about">
-                    ABOUT
-                </Link>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/gallery">
-                    GALLERY
-                </Link>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/product">
-                    PRODUCT
-                </Link>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/notice">
-                    NOTICE
-                </Link>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/booking">
-                    BOOKING
-                </Link>
-            </div>
+            <Fade collapse when={menuToggle}>
+                <div className={classNames("md:hidden", { hidden: !menuToggle })}>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/" onClick={handleMenuItemClick}>
+                        HOME
+                    </Link>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/about" onClick={handleMenuItemClick}>
+                        ABOUT
+                    </Link>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/gallery" onClick={handleMenuItemClick}>
+                        GALLERY
+                    </Link>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/product" onClick={handleMenuItemClick}>
+                        PRODUCT
+                    </Link>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/notice" onClick={handleMenuItemClick}>
+                        NOTICE
+                    </Link>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/booking" onClick={handleMenuItemClick}>
+                        BOOKING
+                    </Link>
+                </div>
+            </Fade>
         </header>
     );
 }
