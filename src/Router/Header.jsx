@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import { Fade } from 'react-reveal';
-import logo from '../img/logo.png';
+import logo from '../img/logo_01.png';
 import classNames from "classnames";
 import { useState } from "react";
 
 const Header = () => {
     const [menuToggle, setMenuToggle] = useState(false);
+    const location = useLocation(); // 현재 경로 가져오기
 
+    // 현재 경로에 따라 메뉴 스타일 변경
+    const isActive = (path) => {
+        return location.pathname === path ? 'text-gray-900' : 'text-gray-400';
+    };
     const handleMenuItemClick = () => {
         // 메뉴 아이템 클릭 시 메뉴를 닫습니다.
         setMenuToggle(false);
@@ -15,39 +20,46 @@ const Header = () => {
         <header className="inset-x-0 top-0 z-50 left-0 bg-white text-gray-700 body-font">
             {/* PC menu */}
             <div className="hidden md:flex container mx-auto flex flex-wrap p-5 flex-col md:flex-column items-center">
-                {/*<Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" to="/">
-                    <img alt="logo" src={logo} className="w-40 h-16 -mr-1" />
-                </Link>*/}
-                <nav className="flex flex-wrap items-center text-base justify-center">
-                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/">
+                <Link className="flex title-font pt-5 font-medium justify-center text-gray-900 mb-4 md:mb-0" to="/">
+                    <img alt="logo" src={logo} className="w-2/6"/>
+                </Link>
+                <nav className="flex flex-wrap items-center text-xs justify-center pt-5">
+                    <Link
+                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/')}`}
+                        to="/">
                         HOME
                     </Link>
-                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/about">
+                    <Link
+                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/about')}`}
+                        to="/about">
                         ABOUT
                     </Link>
-                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/gallery">
+                    <Link
+                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/gallery')}`}
+                        to="/gallery">
                         GALLERY
                     </Link>
-                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/product">
+                    <Link
+                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/product')}`}
+                        to="/product">
                         PRODUCT
                     </Link>
-                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/notice">
+                    <Link
+                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/notice')}`}
+                        to="/notice">
                         NOTICE
                     </Link>
-                    <Link className="mx-6 hover:text-gray-900 hover:bg-gray-200 px-10 py-2 rounded transition duration-300" to="/booking">
+                    <Link
+                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/booking')}`}
+                        to="/booking">
                         BOOKING
                     </Link>
                 </nav>
             </div>
             {/* mobile menu */}
             <div className="md:hidden flex container mx-auto flex-wrap p-5 flex-row items-center justify-between">
-                {/*<Link className="flex title-font font-medium items-center text-gray-900 md:mb-0" to="/">
-                    <img alt="logo" src={logo} className="w-30 h-10 -mr-1" />
-                </Link>*/}
                 <div className="md:hidden flex items-center">
-                    <button
-                        onClick={() => setMenuToggle(!menuToggle)}
-                    >
+                    <button onClick={() => setMenuToggle(!menuToggle)}>
                         {menuToggle ? (
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -81,26 +93,34 @@ const Header = () => {
                         )}
                     </button>
                 </div>
+                <Link to="/" className="text-white font-semibold text-xl flex items-center">
+                    <img alt="logo" src={logo} className="w-44 h-auto" />
+                </Link>
             </div>
             {/* mobile menu items */}
             <Fade collapse when={menuToggle}>
-                <div className={classNames("md:hidden", { hidden: !menuToggle })}>
+                <div className={classNames("md:hidden", {hidden: !menuToggle})}>
                     <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/" onClick={handleMenuItemClick}>
                         HOME
                     </Link>
-                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/about" onClick={handleMenuItemClick}>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/about"
+                          onClick={handleMenuItemClick}>
                         ABOUT
                     </Link>
-                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/gallery" onClick={handleMenuItemClick}>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/gallery"
+                          onClick={handleMenuItemClick}>
                         GALLERY
                     </Link>
-                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/product" onClick={handleMenuItemClick}>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/product"
+                          onClick={handleMenuItemClick}>
                         PRODUCT
                     </Link>
-                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/notice" onClick={handleMenuItemClick}>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/notice"
+                          onClick={handleMenuItemClick}>
                         NOTICE
                     </Link>
-                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/booking" onClick={handleMenuItemClick}>
+                    <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/booking"
+                          onClick={handleMenuItemClick}>
                         BOOKING
                     </Link>
                 </div>
