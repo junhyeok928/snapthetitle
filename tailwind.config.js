@@ -3,7 +3,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['NanumSquareRound', 'Helvetica', 'Arial', 'sans-serif'], // CustomFont는 폰트 패밀리 이름
+                sans: ['SUIT-Regular', 'Helvetica', 'Arial', 'sans-serif'], // CustomFont는 폰트 패밀리 이름
             },},
         screens: {
             'sm': '640px',
