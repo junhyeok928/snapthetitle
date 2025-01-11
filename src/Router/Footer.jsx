@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="bg-gray-100">
+        <footer className="">
             <div className="container mx-auto py-2 px-5 flex flex-wrap flex-col sm:flex-row items-center">
                 <p className="text-gray-500 text-sm text-center sm:text-left mb-2 sm:mb-0">© 2023 SnapTheTitle</p>
                 <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">

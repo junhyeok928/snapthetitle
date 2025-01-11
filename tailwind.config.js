@@ -3,7 +3,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['SUIT-Regular', 'Helvetica', 'Arial', 'sans-serif'], // CustomFont는 폰트 패밀리 이름
+                sans: ['Apple SD Gothic Neo', 'Helvetica', 'Arial', 'sans-serif'], // CustomFont는 폰트 패밀리 이름
             },},
         screens: {
             'sm': '640px',
@@ -18,9 +18,9 @@ module.exports = {
             'xl': '1280px',
             // => @media (min-width: 1280px) { ... }
 
-            '2xl': '1536px',
-            // => @media (min-width: 1536px) { ... }
+            '2xl': '1750px',
+            // => @media (min-width: 1750px) { ... }
         },
     },
-    plugins: [],
+    plugins: [require("tailwindcss-safe-area")],
 };

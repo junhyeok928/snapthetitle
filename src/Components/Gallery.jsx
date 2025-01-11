@@ -1,6 +1,4 @@
 import React from 'react';
-import GridLayout from 'react-grid-layout';
-import { Fade } from "react-reveal";
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 

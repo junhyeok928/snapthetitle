@@ -25,7 +25,7 @@ const ImageSlider = ({ images }) => {
     };
 
     return (
-        <div className="relative h-screen">
+        <div className="relative relative2">
             {images.map((image, index) => (
                 <div
                     key={index}
