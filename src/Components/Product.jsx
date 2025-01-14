@@ -2,7 +2,7 @@ import React from 'react';
 
 const Product = () => {
     return (
-        <div className="text-gray-900 min-h-screen px-5 pb-10 flex flex-col gap-10 items-center bg-white">
+        <div className="text-gray-900 px-5 flex flex-col gap-10 items-center bg-white">
             <div className="w-full max-w-4xl">
                 {/* Product Item A */}
                 <div className="py-6">

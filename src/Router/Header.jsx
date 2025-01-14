@@ -8,7 +8,12 @@ const Header = () => {
     const location = useLocation();
 
     const isActive = (path) => {
-        return location.pathname === path ? 'text-gray-900' : 'text-gray-400';
+        // NOTICE 메뉴의 하위 경로에 해당하는 경우도 활성화 처리
+        const isNoticePath = ['/notice/faq', '/notice/partner', '/notice/guide'].includes(location.pathname);
+        if (path === '/notice' && isNoticePath) {
+            return 'text-gray-900 font-bold'; // 활성화된 스타일
+        }
+        return location.pathname === path ? 'text-gray-900 font-bold' : 'text-gray-400';
     };
 
     const handleMenuItemClick = () => {
@@ -67,12 +72,13 @@ const Header = () => {
                     >
                         <Link
                             className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/notice')}`}
-                            to="/notice"
+                            to="#"
+                            onClick={(e) => e.preventDefault()} // 클릭 시 기본 동작 방지
                         >
                             NOTICE
                         </Link>
                         {isNoticeDropdownOpen && (
-                            <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
+                            <div className="absolute left-0 mt-1 w-48 bg-white shadow-lg rounded-md z-50">
                                 <ul className="space-y-2 p-2">
                                     <li>
                                         <Link
@@ -103,10 +109,10 @@ const Header = () => {
                         )}
                     </div>
                     <Link
-                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/booking')}`}
-                        to="/booking"
+                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/reservation')}`}
+                        to="/reservation"
                     >
-                        BOOKING
+                        RESERVATION
                     </Link>
                 </nav>
             </div>
@@ -138,7 +144,7 @@ const Header = () => {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path
+                            <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth={2}
@@ -209,8 +215,8 @@ const Header = () => {
                     </div>
                 </div>
 
-                <Link className="block py-2 px-4 text-sm" to="/booking" onClick={handleMenuItemClick}>
-                    BOOKING
+                <Link className="block py-2 px-4 text-sm" to="/reservation" onClick={handleMenuItemClick}>
+                    RESERVATION
                 </Link>
             </div>
         </header>
