@@ -1,0 +1,310 @@
+import img1 from "../img/gallery/GYJ00005-2.jpg";
+import img2 from "../img/gallery/GYJ00089-2.jpg";
+import img3 from "../img/gallery/GYJ00137-1.jpg";
+import img4 from "../img/gallery/GYJ00203-1.jpg";
+import img5 from "../img/gallery/GYJ00211-1.jpg";
+import img6 from "../img/gallery/GYJ00218-1.jpg";
+import img7 from "../img/gallery/GYJ00229-1.jpg";
+import img8 from "../img/gallery/GYJ00258-1.jpg";
+import img9 from "../img/gallery/GYJ00357-1.jpg";
+import img10 from "../img/gallery/GYJ00362-1.jpg";
+import img11 from "../img/gallery/GYJ00402-1.jpg";
+import img12 from "../img/gallery/GYJ00408-2.jpg";
+import img13 from "../img/gallery/GYJ00434-1.jpg";
+import img14 from "../img/gallery/GYJ00459-1.jpg";
+import img15 from "../img/gallery/GYJ00493-2.jpg";
+import img16 from "../img/gallery/GYJ00583-1.jpg";
+import img17 from "../img/gallery/GYJ00637-2.jpg";
+import img18 from "../img/gallery/GYJ00716-1.jpg";
+import img19 from "../img/gallery/GYJ00732-1.jpg";
+import img20 from "../img/gallery/GYJ00734-1.jpg";
+import img21 from "../img/gallery/GYJ00742-1.jpg";
+import img22 from "../img/gallery/GYJ00762-1.jpg";
+import img23 from "../img/gallery/GYJ00802-1.jpg";
+import img24 from "../img/gallery/GYJ00835-2.jpg";
+import img25 from "../img/gallery/GYJ00925-1.jpg";
+import img26 from "../img/gallery/GYJ00938-2.jpg";
+import img27 from "../img/gallery/GYJ00941-1.jpg";
+import img28 from "../img/gallery/GYJ00954-2.jpg";
+import img29 from "../img/gallery/GYJ00987-1.jpg";
+import img30 from "../img/gallery/GYJ00988-1.jpg";
+import img31 from "../img/gallery/GYJ01001-1.jpg";
+import img32 from "../img/gallery/GYJ01032-1.jpg";
+import img33 from "../img/gallery/GYJ01124-1.jpg";
+import img34 from "../img/gallery/GYJ01156-1.jpg";
+import img35 from "../img/gallery/GYJ01176-1.jpg";
+import img36 from "../img/gallery/GYJ01270-1.jpg";
+import img37 from "../img/gallery/GYJ01369-1.jpg";
+import img38 from "../img/gallery/GYJ01452-1.jpg";
+import img39 from "../img/gallery/GYJ01473-1.jpg";
+import img40 from "../img/gallery/GYJ01489-1.jpg";
+import img41 from "../img/gallery/GYJ01564-1.jpg";
+import img42 from "../img/gallery/GYJ01581-1.jpg";
+import img43 from "../img/gallery/GYJ01649-1.jpg";
+import img44 from "../img/gallery/GYJ01809-1.jpg";
+import img45 from "../img/gallery/GYJ01831-1.jpg";
+import img46 from "../img/gallery/JOO00045-1.jpg";
+import img47 from "../img/gallery/JOO00071-1.jpg";
+import img48 from "../img/gallery/JOO00091-1.jpg";
+import img49 from "../img/gallery/JOO00110-1.jpg";
+import img50 from "../img/gallery/JOO00252-2.jpg";
+import img51 from "../img/gallery/JOO00258-2.jpg";
+import img52 from "../img/gallery/JOO00321-3.jpg";
+import img53 from "../img/gallery/JOO00336-1.jpg";
+import img54 from "../img/gallery/JOO00413-1.jpg";
+import img55 from "../img/gallery/JOO00550-2.jpg";
+import img56 from "../img/gallery/JOO00824-2.jpg";
+import img57 from "../img/gallery/JOO00892-2.jpg";
+import img58 from "../img/gallery/JOO00901-1.jpg";
+import img59 from "../img/gallery/JOO01036-1.jpg";
+import img60 from "../img/gallery/JOO01304-1.jpg";
+import img61 from "../img/gallery/JOO01409-1.jpg";
+import img62 from "../img/gallery/Snap the title-0522(1).jpg";
+import img63 from "../img/gallery/Snap The Title_05378-1.jpg";
+import img64 from "../img/gallery/STT00033.jpg";
+import img65 from "../img/gallery/STT00089-2.jpg";
+import img66 from "../img/gallery/STT00109-1.jpg";
+import img67 from "../img/gallery/STT00113-2.jpg";
+import img68 from "../img/gallery/STT00126-1.jpg";
+import img69 from "../img/gallery/STT00221-3.jpg";
+import img70 from "../img/gallery/STT00228-1.jpg";
+import img71 from "../img/gallery/STT00243-1.jpg";
+import img72 from "../img/gallery/STT00297-1.jpg";
+import img73 from "../img/gallery/STT00317-1.jpg";
+import img74 from "../img/gallery/STT00341-1.jpg";
+import img75 from "../img/gallery/STT00362-1.jpg";
+import img76 from "../img/gallery/STT00370-1.jpg";
+import img77 from "../img/gallery/STT00399-1.jpg";
+import img78 from "../img/gallery/STT00400-1.jpg";
+import img79 from "../img/gallery/STT00409-4.jpg";
+import img80 from "../img/gallery/STT00425-1.jpg";
+import img81 from "../img/gallery/STT00451-1.jpg";
+import img82 from "../img/gallery/STT00468-1.jpg";
+import img83 from "../img/gallery/STT00470-1.jpg";
+import img84 from "../img/gallery/STT00484-1.jpg";
+import img85 from "../img/gallery/STT00537-1.jpg";
+import img86 from "../img/gallery/STT00537-1d.jpg";
+import img87 from "../img/gallery/STT00556-1.jpg";
+import img88 from "../img/gallery/STT00560-1.jpg";
+import img89 from "../img/gallery/STT00562-2.jpg";
+import img90 from "../img/gallery/STT00564-1.jpg";
+import img91 from "../img/gallery/STT00603-1.jpg";
+import img92 from "../img/gallery/STT00604-1.jpg";
+import img93 from "../img/gallery/STT00606-1.jpg";
+import img94 from "../img/gallery/STT00628-1.jpg";
+import img95 from "../img/gallery/STT00685-1.jpg";
+import img96 from "../img/gallery/STT00727-1.jpg";
+import img97 from "../img/gallery/STT00729-1.jpg";
+import img98 from "../img/gallery/STT00758-1.jpg";
+import img99 from "../img/gallery/STT00782-1.jpg";
+import img100 from "../img/gallery/STT00804-1.jpg";
+import img101 from "../img/gallery/STT00832-2.jpg";
+import img102 from "../img/gallery/STT00855-1.jpg";
+import img103 from "../img/gallery/STT00915-1.jpg";
+import img104 from "../img/gallery/STT00927-1.jpg";
+import img105 from "../img/gallery/STT00967-1.jpg";
+import img106 from "../img/gallery/STT01020-1.jpg";
+import img107 from "../img/gallery/STT01042-1.jpg";
+import img108 from "../img/gallery/STT01047-1.jpg";
+import img109 from "../img/gallery/STT01052-1.jpg";
+import img110 from "../img/gallery/STT01057-1.jpg";
+import img111 from "../img/gallery/STT01081-1.jpg";
+import img112 from "../img/gallery/STT01091-1.jpg";
+import img113 from "../img/gallery/STT01108-1.jpg";
+import img114 from "../img/gallery/STT01160-1.jpg";
+import img115 from "../img/gallery/STT01196-1.jpg";
+import img116 from "../img/gallery/STT01203-1.jpg";
+import img117 from "../img/gallery/STT01204-2.jpg";
+import img118 from "../img/gallery/STT01204.JPG";
+import img119 from "../img/gallery/STT01220-1.jpg";
+import img120 from "../img/gallery/STT01283-2.jpg";
+import img121 from "../img/gallery/STT01284-1.jpg";
+import img122 from "../img/gallery/STT01299-1.jpg";
+import img123 from "../img/gallery/STT01317-1.jpg";
+import img124 from "../img/gallery/STT01322-1.jpg";
+import img125 from "../img/gallery/STT01327-1.jpg";
+import img126 from "../img/gallery/STT01339.jpg";
+import img127 from "../img/gallery/STT01365-1.jpg";
+import img128 from "../img/gallery/STT01378-1.jpg";
+import img129 from "../img/gallery/STT01431-1.jpg";
+import img130 from "../img/gallery/STT01432-1.jpg";
+import img131 from "../img/gallery/STT01453-1.jpg";
+import img132 from "../img/gallery/STT01456-1.jpg";
+import img133 from "../img/gallery/STT01468-1.jpg";
+import img134 from "../img/gallery/STT01480-1.jpg";
+import img135 from "../img/gallery/STT01498-1.jpg";
+import img136 from "../img/gallery/STT016150-1.jpg";
+import img137 from "../img/gallery/STT01660-1.jpg";
+import img138 from "../img/gallery/STT01670-1.jpg";
+import img139 from "../img/gallery/STT01684-1.jpg";
+import img140 from "../img/gallery/STT01715-2.jpg";
+import img141 from "../img/gallery/STT01760-1.jpg";
+import img142 from "../img/gallery/STT01915-2.jpg";
+import img143 from "../img/gallery/STT02302-2.jpg";
+import img144 from "../img/gallery/STT02518-2.jpg";
+import img145 from "../img/gallery/STT02565-1.jpg";
+import img146 from "../img/gallery/STT02765-1.jpg";
+import img147 from "../img/gallery/STT02800-2.jpg";
+import img148 from "../img/gallery/STT03090-1.jpg";
+import img149 from "../img/gallery/STT04195-1.jpg";
+import img150 from "../img/gallery/STT04971-3.jpg";
+import img151 from "../img/gallery/보정3-1.jpg";
+import img152 from "../img/gallery/보정13-1.jpg";
+import img153 from "../img/gallery/인스타0.jpg";
+
+
+export const photos = [
+    { src: img1 },
+    { src: img2 },
+    { src: img3 },
+    { src: img4 },
+    { src: img5 },
+    { src: img6 },
+    { src: img7 },
+    { src: img8 },
+    { src: img9 },
+    { src: img10 },
+    { src: img11 },
+    { src: img12 },
+    { src: img13 },
+    { src: img14 },
+    { src: img15 },
+    { src: img16 },
+    { src: img17 },
+    { src: img18 },
+    { src: img19 },
+    { src: img20 },
+    { src: img21 },
+    { src: img22 },
+    { src: img23 },
+    { src: img24 },
+    { src: img25 },
+    { src: img26 },
+    { src: img27 },
+    { src: img28 },
+    { src: img29 },
+    { src: img30 },
+    { src: img31 },
+    { src: img32 },
+    { src: img33 },
+    { src: img34 },
+    { src: img35 },
+    { src: img36 },
+    { src: img37 },
+    { src: img38 },
+    { src: img39 },
+    { src: img40 },
+    { src: img41 },
+    { src: img42 },
+    { src: img43 },
+    { src: img44 },
+    { src: img45 },
+    { src: img46 },
+    { src: img47 },
+    { src: img48 },
+    { src: img49 },
+    { src: img50 },
+    { src: img51 },
+    { src: img52 },
+    { src: img53 },
+    { src: img54 },
+    { src: img55 },
+    { src: img56 },
+    { src: img57 },
+    { src: img58 },
+    { src: img59 },
+    { src: img60 },
+    { src: img61 },
+    { src: img62 },
+    { src: img63 },
+    { src: img64 },
+    { src: img65 },
+    { src: img66 },
+    { src: img67 },
+    { src: img68 },
+    { src: img69 },
+    { src: img70 },
+    { src: img71 },
+    { src: img72 },
+    { src: img73 },
+    { src: img74 },
+    { src: img75 },
+    { src: img76 },
+    { src: img77 },
+    { src: img78 },
+    { src: img79 },
+    { src: img80 },
+    { src: img81 },
+    { src: img82 },
+    { src: img83 },
+    { src: img84 },
+    { src: img85 },
+    { src: img86 },
+    { src: img87 },
+    { src: img88 },
+    { src: img89 },
+    { src: img90 },
+    { src: img91 },
+    { src: img92 },
+    { src: img93 },
+    { src: img94 },
+    { src: img95 },
+    { src: img96 },
+    { src: img97 },
+    { src: img98 },
+    { src: img99 },
+    { src: img100 },
+    { src: img101 },
+    { src: img102 },
+    { src: img103 },
+    { src: img104 },
+    { src: img105 },
+    { src: img106 },
+    { src: img107 },
+    { src: img108 },
+    { src: img109 },
+    { src: img110 },
+    { src: img111 },
+    { src: img112 },
+    { src: img113 },
+    { src: img114 },
+    { src: img115 },
+    { src: img116 },
+    { src: img117 },
+    { src: img118 },
+    { src: img119 },
+    { src: img120 },
+    { src: img121 },
+    { src: img122 },
+    { src: img123 },
+    { src: img124 },
+    { src: img125 },
+    { src: img126 },
+    { src: img127 },
+    { src: img128 },
+    { src: img129 },
+    { src: img130 },
+    { src: img131 },
+    { src: img132 },
+    { src: img133 },
+    { src: img134 },
+    { src: img135 },
+    { src: img136 },
+    { src: img137 },
+    { src: img138 },
+    { src: img139 },
+    { src: img140 },
+    { src: img141 },
+    { src: img142 },
+    { src: img143 },
+    { src: img144 },
+    { src: img145 },
+    { src: img146 },
+    { src: img147 },
+    { src: img148 },
+    { src: img149 },
+    { src: img150 },
+    { src: img151 },
+    { src: img152 },
+    { src: img153 },
+];
