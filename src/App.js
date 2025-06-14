@@ -1,45 +1,71 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./Components/Home";
-import Header from "./Router/Header";
-import About from "./Components/About";
-import Gallery from "./Components/Gallery";
-import Product from "./Components/Product";
-import Notice from "./Components/Notice";
-import Reservation from "./Components/Reservation";
-import Faq from "./Components/Notice/Faq";
-import Guide from "./Components/Notice/Guide";
-import Partner from "./Components/Notice/Partner";
-import Footer from "./Router/Footer";
+// src/App.js
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import PrivateRoute from "./components/common/PrivateRoute";
 
-const Router = () => {
-    return (
+// 레이아웃 컴포넌트
+import UserLayout  from "./components/common/UserLayout";
+import AdminLayout from "./components/common/AdminLayout";
+
+// 사용자 페이지
+import Home        from "./components/pages/Home";
+import About       from "./components/pages/About";
+import Gallery     from "./components/pages/Gallery";
+import Product     from "./components/pages/Product";
+import Reservation from "./components/pages/Reservation";
+import Faq         from "./components/pages/notice/Faq";
+import Guide       from "./components/pages/notice/Guide";
+import Partner     from "./components/pages/notice/Partner";
+
+// 관리자 페이지
+import Login             from "./components/admin/Login";
+import Dashboard         from "./components/admin/Dashboard";
+import GalleryManagement from "./components/admin/GalleryManagement";
+import ProductManagement from "./components/admin/ProductManagement";
+import FaqManagement     from "./components/admin/FaqManagement";
+import GuideManagement   from "./components/admin/GuideManagement";
+import PartnerManagement from "./components/admin/PartnerManagement";
+
+const App = () => (
+    <AuthProvider>
         <BrowserRouter>
-            <div className="flex flex-col min-h-screen">
-                {/* Header */}
-                <Header />
+            <Routes>
+                {/* 사용자 레이아웃: Header/Footer 포함 */}
+                <Route element={<UserLayout />}>
+                    <Route path="/"               element={<Home />} />
+                    <Route path="/about"          element={<About />} />
+                    <Route path="/gallery"        element={<Gallery />} />
+                    <Route path="/product"        element={<Product />} />
+                    <Route path="/reservation"    element={<Reservation />} />
+                    <Route path="/notice/faq"     element={<Faq />} />
+                    <Route path="/notice/guide"   element={<Guide />} />
+                    <Route path="/notice/partner" element={<Partner />} />
+                </Route>
 
-                {/* Main Content */}
-                <div className="flex-1 bg-white py-5">
-                    <div className="w-full sm:w-3/4 md:w-3/4 lg:w-3/4 xl:w-2/4 2xl:w-1/3 mx-auto">
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/gallery" element={<Gallery />} />
-                            <Route path="/product" element={<Product />} />
-                            <Route path="/notice" element={<Notice />} />
-                            <Route path="/Reservation" element={<Reservation />} />
-                            <Route path="/notice/faq" element={<Faq />} />
-                            <Route path="/notice/guide" element={<Guide />} />
-                            <Route path="/notice/partner" element={<Partner />} />
-                        </Routes>
-                    </div>
-                </div>
+                {/* 관리자 로그인 */}
+                <Route path="/admin/login" element={<Login />} />
 
-                {/* Footer */}
-                <Footer />
-            </div>
+                {/* 관리자 레이아웃: 사이드바만, PrivateRoute로 보호 */}
+                <Route
+                    path="/admin/*"
+                    element={
+                        <PrivateRoute>
+                            <AdminLayout />
+                        </PrivateRoute>
+                    }
+                >
+                    <Route index            element={<Navigate to="dashboard" replace />} />
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="gallery"   element={<GalleryManagement />} />
+                    <Route path="product"   element={<ProductManagement />} />
+                    <Route path="faq"       element={<FaqManagement />} />
+                    <Route path="guide"     element={<GuideManagement />} />
+                    <Route path="partner"   element={<PartnerManagement />} />
+                </Route>
+            </Routes>
         </BrowserRouter>
-    );
-};
+    </AuthProvider>
+);
 
-export default Router;
+export default App;

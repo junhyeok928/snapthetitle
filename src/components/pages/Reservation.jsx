@@ -1,5 +1,5 @@
 import React from "react";
-import kakaoImg from '../img/kakao.png';
+import kakaoImg from '../../img/kakao.png';
 
 const Reservation = () => {
     return (

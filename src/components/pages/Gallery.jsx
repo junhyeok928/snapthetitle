@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo } from "react";
 import Lightbox from "react-image-lightbox";
-import { photos } from "../data/photos";
+import { photos } from "../../data/photos";
 import "react-image-lightbox/style.css";
-import "../css/GalleryComponent.css";
+import "../../css/GalleryComponent.css";
 
 const ITEMS_PER_PAGE = 9; // 한 페이지에 표시할 이미지 개수
 
