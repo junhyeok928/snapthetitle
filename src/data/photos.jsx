@@ -308,3 +308,28 @@ export const photos = [
     { src: img152 },
     { src: img153 },
 ];
+// 나중에 관리자 페이지에서 업로드할 때 이런 형태로 저장될 예정
+// export const photos = [
+//     {
+//         src: img1,
+//         alt: "Wedding Photo 1",
+//         category: "바다" // 관리자가 업로드 시 선택할 카테고리
+//     },
+//     {
+//         src: img2,
+//         alt: "Wedding Photo 2",
+//         category: "들판"
+//     },
+//     {
+//         src: img3,
+//         alt: "Wedding Photo 3",
+//         category: "스튜디오"
+//     },
+//     // 기존 사진들은 임시로 category 없이 유지 (자동 분류됨)
+//     {
+//         src: img4,
+//         alt: "Wedding Photo 4"
+//         // category 없음 - 인덱스 기반 자동 분류
+//     },
+//     // ... 나머지 사진들
+// ];

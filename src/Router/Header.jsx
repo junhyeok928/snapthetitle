@@ -4,16 +4,15 @@ import { useState } from "react";
 
 const Header = () => {
     const [menuToggle, setMenuToggle] = useState(false);
-    const [isNoticeDropdownOpen, setIsNoticeDropdownOpen] = useState(false); // NOTICE 드롭다운 상태
+    const [isNoticeDropdownOpen, setIsNoticeDropdownOpen] = useState(false);
     const location = useLocation();
 
     const isActive = (path) => {
-        // NOTICE 메뉴의 하위 경로에 해당하는 경우도 활성화 처리
         const isNoticePath = ['/notice/faq', '/notice/partner', '/notice/guide'].includes(location.pathname);
         if (path === '/notice' && isNoticePath) {
-            return 'text-gray-900 font-bold'; // 활성화된 스타일
+            return 'text-black font-medium border-b-2 border-black';
         }
-        return location.pathname === path ? 'text-gray-900 font-bold' : 'text-gray-400';
+        return location.pathname === path ? 'text-black font-medium border-b-2 border-black' : 'text-gray-600';
     };
 
     const handleMenuItemClick = () => {
@@ -25,199 +24,234 @@ const Header = () => {
     };
 
     const handleMouseEnter = () => {
-        setIsNoticeDropdownOpen(true); // notice 메뉴에 마우스 올리면 드롭다운 열기
+        setIsNoticeDropdownOpen(true);
     };
 
     const handleMouseLeave = () => {
-        setIsNoticeDropdownOpen(false); // notice 메뉴에서 마우스 떼면 드롭다운 닫기
+        setIsNoticeDropdownOpen(false);
     };
 
     return (
-        <header className="inset-x-0 top-0 z-50 left-0 bg-white text-gray-700 body-font">
+        <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
             {/* PC menu */}
-            <div className="hidden md:flex container mx-auto flex flex-wrap p-5 flex-col md:flex-column items-center">
-                <Link className="flex title-font pt-5 font-medium justify-center text-gray-900 mb-4 md:mb-0" to="/">
-                    <img alt="logo" src={logo} className="w-2/6"/>
-                </Link>
-                <nav className="flex flex-wrap items-center text-xs justify-center pt-5">
-                    <Link
-                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/')}`}
-                        to="/"
-                    >
-                        HOME
-                    </Link>
-                    <Link
-                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/about')}`}
-                        to="/about"
-                    >
-                        ABOUT
-                    </Link>
-                    <Link
-                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/gallery')}`}
-                        to="/gallery"
-                    >
-                        GALLERY
-                    </Link>
-                    <Link
-                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/product')}`}
-                        to="/product"
-                    >
-                        PRODUCT
-                    </Link>
-                    {/* Notice 메뉴에 드롭다운 추가 */}
-                    <div
-                        className="relative"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <Link
-                            className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/notice')}`}
-                            to="#"
-                            onClick={(e) => e.preventDefault()} // 클릭 시 기본 동작 방지
-                        >
-                            NOTICE
+            <div className="hidden md:block">
+                <div className="container mx-auto px-6">
+                    {/* 로고 */}
+                    <div className="flex justify-center py-6 border-b border-gray-50">
+                        <Link to="/" className="transition-transform duration-200 hover:scale-105">
+                            <img alt="logo" src={logo} className="h-12 w-auto"/>
                         </Link>
-                        {isNoticeDropdownOpen && (
-                            <div className="absolute left-0 mt-1 w-48 bg-white shadow-lg rounded-md z-50">
-                                <ul className="space-y-2 p-2">
-                                    <li>
+                    </div>
+                    
+                    {/* 네비게이션 */}
+                    <nav className="flex justify-center items-center py-4">
+                        <div className="flex space-x-12">
+                            <Link
+                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/')}`}
+                                to="/"
+                            >
+                                HOME
+                            </Link>
+                            <Link
+                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/about')}`}
+                                to="/about"
+                            >
+                                ABOUT
+                            </Link>
+                            <Link
+                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/gallery')}`}
+                                to="/gallery"
+                            >
+                                GALLERY
+                            </Link>
+                            <Link
+                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/product')}`}
+                                to="/product"
+                            >
+                                PRODUCT
+                            </Link>
+                            
+                            {/* Notice 드롭다운 메뉴 */}
+                            <div
+                                className="relative"
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <button
+                                    className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/notice')}`}
+                                >
+                                    NOTICE
+                                </button>
+                                
+                                {/* 드롭다운 메뉴 */}
+                                <div
+                                    className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-40 bg-white border border-gray-100 rounded-lg shadow-lg transition-all duration-200 ${
+                                        isNoticeDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                                    }`}
+                                >
+                                    <div className="py-2">
                                         <Link
-                                            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                                            className="block px-4 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
                                             to="/notice/faq"
                                         >
                                             FAQ
                                         </Link>
-                                    </li>
-                                    <li>
                                         <Link
-                                            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                                            className="block px-4 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
                                             to="/notice/partner"
                                         >
                                             제휴
                                         </Link>
-                                    </li>
-                                    <li>
                                         <Link
-                                            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                                            className="block px-4 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
                                             to="/notice/guide"
                                         >
                                             가이드
                                         </Link>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
-                        )}
-                    </div>
-                    <Link
-                        className={`mx-4 hover:text-gray-900 hover:bg-gray-200 px-6 py-2 rounded transition duration-300 ${isActive('/reservation')}`}
-                        to="/reservation"
-                    >
-                        RESERVATION
-                    </Link>
-                </nav>
-            </div>
-
-            {/* 모바일 메뉴 */}
-            <div className="md:hidden flex container mx-auto flex-wrap p-5 flex-row items-center justify-between">
-                <div className="md:hidden flex items-center">
-                    <button onClick={() => setMenuToggle(!menuToggle)}>
-                        {menuToggle ? (
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                            
+                            <Link
+                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/reservation')}`}
+                                to="/reservation"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
-                        ) : (
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                            <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                            </svg>
-                        )}
-                    </button>
+                                RESERVATION
+                            </Link>
+                        </div>
+                    </nav>
                 </div>
-                <Link to="/" className="text-white font-semibold text-xl flex items-center">
-                    <img alt="logo" src={logo} className="w-44 h-auto"/>
-                </Link>
             </div>
 
-            {/* 모바일 메뉴 항목들 */}
-            <div
-                className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${menuToggle ? 'max-h-screen' : 'max-h-0'}`}
-            >
-                <Link className="block py-2 px-4 text-sm" to="/" onClick={handleMenuItemClick}>
-                    HOME
-                </Link>
-                <Link className="block py-2 px-4 text-sm" to="/about" onClick={handleMenuItemClick}>
-                    ABOUT
-                </Link>
-                <Link className="block py-2 px-4 text-sm" to="/gallery" onClick={handleMenuItemClick}>
-                    GALLERY
-                </Link>
-                <Link className="block py-2 px-4 text-sm" to="/product" onClick={handleMenuItemClick}>
-                    PRODUCT
-                </Link>
-
-                {/* 모바일에서 NOTICE 클릭 시 소메뉴 펼쳐지기 */}
-                <div className="relative">
-                    <button
-                        className="block py-2 px-4 text-sm w-full text-left"
-                        onClick={handleMobileNoticeClick}
+            {/* 모바일 헤더 */}
+            <div className="md:hidden">
+                <div className="flex items-center justify-between px-4 py-4">
+                    {/* 햄버거 메뉴 버튼 */}
+                    <button 
+                        onClick={() => setMenuToggle(!menuToggle)}
+                        className="p-2 rounded-md hover:bg-gray-50 transition-colors duration-150"
                     >
-                        NOTICE
+                        <div className="w-5 h-5 flex flex-col justify-center items-center">
+                            <span
+                                className={`bg-gray-800 block transition-all duration-300 ease-out h-0.5 w-5 rounded-sm ${
+                                    menuToggle ? 'rotate-45 translate-y-1' : '-translate-y-0.5'
+                                }`}
+                            ></span>
+                            <span
+                                className={`bg-gray-800 block transition-all duration-300 ease-out h-0.5 w-5 rounded-sm my-0.5 ${
+                                    menuToggle ? 'opacity-0' : 'opacity-100'
+                                }`}
+                            ></span>
+                            <span
+                                className={`bg-gray-800 block transition-all duration-300 ease-out h-0.5 w-5 rounded-sm ${
+                                    menuToggle ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'
+                                }`}
+                            ></span>
+                        </div>
                     </button>
-                    <div
-                        className={`flex flex-col space-y-2 px-4 overflow-hidden transition-all duration-300 ease-in-out ${isNoticeDropdownOpen ? 'max-h-screen' : 'max-h-0'}`}
-                    >
-                        {isNoticeDropdownOpen && (
-                            <>
+                    
+                    {/* 로고 */}
+                    <Link to="/" className="flex-1 flex justify-center">
+                        <img alt="logo" src={logo} className="h-8 w-auto"/>
+                    </Link>
+                    
+                    {/* 공간 확보용 빈 div */}
+                    <div className="w-9"></div>
+                </div>
+
+                {/* 모바일 메뉴 */}
+                <div
+                    className={`border-t border-gray-100 bg-white overflow-hidden transition-all duration-300 ease-in-out ${
+                        menuToggle ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                >
+                    <nav className="py-4">
+                        <Link 
+                            className="block px-6 py-3 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150" 
+                            to="/" 
+                            onClick={handleMenuItemClick}
+                        >
+                            HOME
+                        </Link>
+                        <Link 
+                            className="block px-6 py-3 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150" 
+                            to="/about" 
+                            onClick={handleMenuItemClick}
+                        >
+                            ABOUT
+                        </Link>
+                        <Link 
+                            className="block px-6 py-3 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150" 
+                            to="/gallery" 
+                            onClick={handleMenuItemClick}
+                        >
+                            GALLERY
+                        </Link>
+                        <Link 
+                            className="block px-6 py-3 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150" 
+                            to="/product" 
+                            onClick={handleMenuItemClick}
+                        >
+                            PRODUCT
+                        </Link>
+
+                        {/* 모바일 NOTICE 메뉴 */}
+                        <div>
+                            <button
+                                className="flex items-center justify-between w-full px-6 py-3 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
+                                onClick={handleMobileNoticeClick}
+                            >
+                                NOTICE
+                                <svg
+                                    className={`w-4 h-4 transition-transform duration-200 ${
+                                        isNoticeDropdownOpen ? 'rotate-180' : ''
+                                    }`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            <div
+                                className={`bg-gray-50 overflow-hidden transition-all duration-300 ease-in-out ${
+                                    isNoticeDropdownOpen ? 'max-h-40' : 'max-h-0'
+                                }`}
+                            >
                                 <Link
                                     to="/notice/faq"
-                                    className="py-1 pl-6 text-sm" // 메뉴 항목의 왼쪽 패딩을 더 주어 들여쓰기 효과를 줌
+                                    className="block px-10 py-2 text-sm text-gray-500 hover:text-black transition-colors duration-150"
                                     onClick={handleMenuItemClick}
                                 >
                                     FAQ
                                 </Link>
                                 <Link
                                     to="/notice/partner"
-                                    className="py-1 pl-6 text-sm" // 메뉴 항목의 왼쪽 패딩을 더 주어 들여쓰기 효과를 줌
+                                    className="block px-10 py-2 text-sm text-gray-500 hover:text-black transition-colors duration-150"
                                     onClick={handleMenuItemClick}
                                 >
                                     제휴
                                 </Link>
                                 <Link
                                     to="/notice/guide"
-                                    className="py-1 pl-6 text-sm" // 메뉴 항목의 왼쪽 패딩을 더 주어 들여쓰기 효과를 줌
+                                    className="block px-10 py-2 text-sm text-gray-500 hover:text-black transition-colors duration-150"
                                     onClick={handleMenuItemClick}
                                 >
                                     가이드
                                 </Link>
-                            </>
-                        )}
-                    </div>
-                </div>
+                            </div>
+                        </div>
 
-                <Link className="block py-2 px-4 text-sm" to="/reservation" onClick={handleMenuItemClick}>
-                    RESERVATION
-                </Link>
+                        <Link 
+                            className="block px-6 py-3 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150" 
+                            to="/reservation" 
+                            onClick={handleMenuItemClick}
+                        >
+                            RESERVATION
+                        </Link>
+                    </nav>
+                </div>
             </div>
         </header>
     );
