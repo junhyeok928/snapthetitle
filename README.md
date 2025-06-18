@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+# snapthetitle (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Snap the Title - 웨딩스냅 촬영 및 예약 웹사이트의 프론트엔드 프로젝트입니다.  
+React와 Tailwind CSS를 기반으로 구축되었으며, 사용자 페이지와 관리자 페이지를 통합 구성하고 있습니다.
 
-## Available Scripts
+## 🛠️ 기술 스택
 
-In the project directory, you can run:
+- **Language:** JavaScript (ES6+)
+- **Framework:** React (CRA 기반)
+- **Styling:** Tailwind CSS
+- **Routing:** React Router
+- **Form:** React Hook Form, Yup
+- **Build Tool:** CRA (Create React App)
+- **HTTP 통신:** Axios
+- **상태 관리:** useState, useEffect
 
-### `yarn start`
+## 📁 디렉토리 구조
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+src/
+├── assets/                # 이미지, 아이콘 등 정적 파일
+├── components/            # 공통 컴포넌트
+├── pages/                 # 주요 페이지 컴포넌트
+│   ├── Home.jsx
+│   ├── About.jsx
+│   ├── Gallery.jsx
+│   ├── Notice/
+│   │   ├── Faq.jsx
+│   │   ├── Guide.jsx
+│   │   └── Partner.jsx
+│   ├── Product.jsx
+│   └── Reservation.jsx
+├── admin/                 # 관리자 페이지 전용 디렉토리
+│   ├── Dashboard.jsx
+│   ├── ProductManagement.jsx
+│   ├── GalleryManagement.jsx
+│   └── Login.jsx
+├── api/                   # API 요청 함수 모음
+├── App.js
+└── index.js
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✅ 주요 기능
 
-### `yarn test`
+- 사용자 페이지
+  - 스냅 촬영 소개 및 안내 (가이드, FAQ 등)
+  - 갤러리, 상품 안내, 예약 폼
+- 관리자 페이지
+  - 로그인 및 토큰 기반 인증
+  - 상품/옵션 등록 및 수정
+  - 갤러리 사진 업로드 및 삭제
+  - 공지/FAQ/가이드 CRUD
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ⚙️ 로컬 실행 방법
 
-### `yarn build`
+1. **Clone**
+   ```bash
+   git clone https://github.com/junhyeok928/snapthetitle.git
+   cd snapthetitle
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **패키지 설치**
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **환경 변수 설정**
+   `.env` 파일을 생성하고 API 서버 주소를 설정합니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```env
+   REACT_APP_API_BASE_URL=http://localhost:8080
+   ```
 
-### `yarn eject`
+4. **로컬 실행**
+   ```bash
+   npm start
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🔐 인증 방식
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 관리자 로그인 시 JWT 토큰 발급
+- `Authorization` 헤더를 통해 인증 요청 처리
+- 토큰은 localStorage에 저장 및 검증
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🎨 UI/UX 참고 기준
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 심플한 화이트 테마
+- Tailwind CSS 기반 반응형 디자인
+- `Guide.jsx`를 기준으로 일관된 컴포넌트 구성
 
-## Learn More
+## 📦 배포
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Netlify, Vercel, 또는 S3 정적 호스팅으로 배포 가능
+- 빌드 명령어
+  ```bash
+  npm run build
+  ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 👤 개발자
 
-### Code Splitting
+| 이름 | 역할 |
+|------|------|
+| 전준혁 (@junhyeok928) | 프론트엔드 개발 및 관리자 UI 구성 |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 백엔드 프로젝트는 [snapthetitle-backend](https://github.com/junhyeok928/snapthetitle-backend) 레포를 참고해주세요.
