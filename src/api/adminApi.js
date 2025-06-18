@@ -128,3 +128,10 @@ export async function updateGalleryPhotoWithFiles(id, metadata, files) {
     });
     return data;
 }
+
+export async function updateGalleryPhotoOrder(orderList) {
+    const { data } = await adminClient.put('/gallery-photos/order', orderList, {
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return data;
+}
