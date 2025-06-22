@@ -1,48 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { fetchPartners } from "../../../api/publicApi"; // 실제 API 함수 추가 필요
 
 const Partnership = () => {
     const [partners, setPartners] = useState([]);
 
     useEffect(() => {
-        // TODO: 실제 API 호출로 대체 예정
-        const fetchPartners = async () => {
-            // 하드코딩된 데이터 예시
-            const data = [
-                {
-                    category: '부케',
-                    name: '이따금플라워',
-                    instagram: '@ittageum',
-                    link: 'https://www.instagram.com/ittageum',
-                },
-                {
-                    category: '수트',
-                    name: '사르베토 인천점',
-                    instagram: '@sarbeto_jubro',
-                    link: 'https://www.instagram.com/sarbeto_jubro',
-                },
-                {
-                    category: '헤어/메이크업',
-                    name: '달리아메이크업',
-                    instagram: '@dahlia_jenny_k',
-                    link: 'https://www.instagram.com/dahlia_jenny_k',
-                },
-                {
-                    category: '드레스제작',
-                    name: '드베이드',
-                    instagram: '@devade_creative',
-                    link: 'https://www.instagram.com/devade_creative',
-                },
-            ];
-            setPartners(data);
-        };
-
-        fetchPartners();
+        fetchPartners()
+            .then(setPartners)
+            .catch((err) => {
+                console.error("파트너 데이터를 불러오는 데 실패했습니다:", err);
+            });
     }, []);
 
     return (
         <section className="text-gray-700 bg-white relative py-16">
             <div className="container px-6 mx-auto max-w-4xl">
-                {/* 섹션 제목 및 설명 */}
+
+                {/* 설명 */}
                 <div className="flex flex-col text-center w-full mb-20">
                     <div className="space-y-6">
                         <p className="lg:w-4/5 mx-auto leading-relaxed text-gray-600 text-base md:text-lg">
@@ -61,7 +35,7 @@ const Partnership = () => {
                 {/* 중앙선 */}
                 <div className="border-t border-gray-200 mb-16"></div>
 
-                {/* 제휴샵 리스트 */}
+                {/* 파트너 목록 */}
                 <div className="space-y-12">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-6">Partnership</h2>
@@ -71,20 +45,19 @@ const Partnership = () => {
                         </div>
                     </div>
 
-                    {/* 제휴샵 목록 */}
                     <div className="grid gap-8 md:gap-12">
                         {partners.map((partner) => (
-                            <div key={partner.name} className="group">
+                            <div key={partner.id} className="group">
                                 <div className="flex flex-col md:flex-row items-center justify-center md:space-x-8 space-y-2 md:space-y-0 py-6 px-6 rounded-lg hover:bg-gray-50 transition-colors duration-200">
                                     <div className="md:w-32 text-center md:text-right">
-                    <span className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">
-                      {partner.category}
-                    </span>
+                                        <span className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium">
+                                            {partner.category}
+                                        </span>
                                     </div>
                                     <div className="flex-1 text-center md:text-left">
                                         <h3 className="text-xl font-medium text-gray-800 mb-2">{partner.name}</h3>
                                         <a
-                                            href={partner.link}
+                                            href={partner.linkUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-gray-500 hover:text-gray-700 text-sm transition-colors duration-200 hover:underline"

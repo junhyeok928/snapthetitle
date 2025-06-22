@@ -1,48 +1,48 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Lightbox from "react-image-lightbox";
-import { photos } from "../../data/photos";
+import { fetchGalleryPhotos } from "../../api/publicApi";
 import "react-image-lightbox/style.css";
 import "../../css/GalleryComponent.css";
 
-const ITEMS_PER_PAGE = 9; // 한 페이지에 표시할 이미지 개수
+const ITEMS_PER_PAGE = 9;
 
 const GalleryComponent = () => {
+    const [allPhotos, setAllPhotos] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState('전체');
 
-    // 카테고리별 사진 분류 - useMemo로 고정하여 리렌더링 시 변경 방지
+    useEffect(() => {
+        const loadPhotos = async () => {
+            try {
+                const data = await fetchGalleryPhotos();
+                setAllPhotos(data);
+            } catch (error) {
+                console.error(error);
+                alert("갤러리 데이터를 불러오는데 실패했습니다.");
+            }
+        };
+        loadPhotos();
+    }, []);
+
     const photosByCategory = useMemo(() => {
-        // 실제 운영에서는 photos 배열에 category 속성이 있어야 함
-        // 예: { src: '...', alt: '...', category: '바다' }
-        
         const categories = {
-            '전체': photos,
-            '바다': photos.filter((photo, index) => {
-                // 임시 분류: 파일명이나 인덱스 기반 (나중에 photo.category로 변경)
-                return photo.category === '바다' || (!photo.category && index % 4 === 0);
-            }),
-            '들판': photos.filter((photo, index) => {
-                return photo.category === '들판' || (!photo.category && index % 4 === 1);
-            }),
-            '스튜디오': photos.filter((photo, index) => {
-                return photo.category === '스튜디오' || (!photo.category && index % 4 === 2);
-            }),
-            '기타': photos.filter((photo, index) => {
-                return photo.category === '기타' || (!photo.category && index % 4 === 3);
-            })
+            '전체': allPhotos,
+            '바다': allPhotos.filter(p => p.category === '바다'),
+            '들판': allPhotos.filter(p => p.category === '들판'),
+            '스튜디오': allPhotos.filter(p => p.category === '스튜디오'),
+            '기타': allPhotos.filter(p => p.category === '기타'),
         };
         return categories;
-    }, [photos]); // photos가 변경될 때만 재계산
+    }, [allPhotos]);
 
     const currentPhotos = photosByCategory[selectedCategory] || [];
     const totalPages = Math.ceil(currentPhotos.length / ITEMS_PER_PAGE);
     const paginatedPhotos = currentPhotos.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
     const handleClick = useCallback((index) => {
-        // 페이지네이션된 사진의 실제 인덱스 계산
         const actualIndex = (currentPage - 1) * ITEMS_PER_PAGE + index;
         setCurrentIndex(actualIndex);
         setIsOpen(true);
@@ -74,7 +74,6 @@ const GalleryComponent = () => {
     return (
         <section className="text-gray-700 bg-white relative py-16">
             <div className="container px-6 mx-auto max-w-7xl">
-                {/* 섹션 제목 및 설명 */}
                 <div className="flex flex-col text-center w-full mb-20">
                     <div className="space-y-6">
                         <p className="lg:w-4/5 mx-auto leading-relaxed text-gray-600 text-base md:text-lg">
@@ -88,10 +87,8 @@ const GalleryComponent = () => {
                     </div>
                 </div>
 
-                {/* 중앙선 */}
                 <div className="border-t border-gray-200 mb-16"></div>
 
-                {/* 갤러리 섹션 */}
                 <div className="space-y-12">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-6">Gallery</h2>
@@ -100,7 +97,6 @@ const GalleryComponent = () => {
                             <p className="text-gray-500 text-sm md:text-base">이미지를 클릭하면 확대해서 보실 수 있습니다.</p>
                         </div>
 
-                        {/* 카테고리 탭 */}
                         <div className="flex justify-center flex-wrap gap-3 mb-12">
                             {categories.map((category) => (
                                 <button
@@ -120,40 +116,41 @@ const GalleryComponent = () => {
                             ))}
                         </div>
 
-                        {/* 현재 카테고리 정보 */}
                         <div className="mb-8">
                             <p className="text-gray-600 text-sm md:text-base">
-                                <span className="font-medium">{selectedCategory}</span> 카테고리 
+                                <span className="font-medium">{selectedCategory}</span> 카테고리
                                 <span className="mx-2">•</span>
                                 총 <span className="font-medium">{currentPhotos.length}</span>장의 사진
                             </p>
                         </div>
                     </div>
 
-                    {/* 갤러리 그리드 */}
                     {currentPhotos.length > 0 ? (
                         <>
                             <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-                                {paginatedPhotos.map((photo, index) => (
-                                    <div key={`photo-${currentPage}-${index}`} className="group break-inside-avoid">
-                                        <img
-                                            src={photo.src}
-                                            alt={photo.alt || `Gallery image ${index + 1}`}
-                                            className="w-full h-auto object-cover cursor-pointer shadow-md rounded-sm transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-xl opacity-0 animate-fade-in"
-                                            onClick={() => handleClick(index)}
-                                            onLoad={(e) => e.target.classList.remove("opacity-0")}
-                                        />
-                                    </div>
-                                ))}
+                                {paginatedPhotos.map((photo, index) => {
+                                    if (!photo?.thumbnailUrl) return null;
+
+                                    return (
+                                        <div key={`photo-${currentPage}-${index}`} className="group break-inside-avoid">
+                                            <img
+                                                src={photo.thumbnailUrl}
+                                                alt={`Gallery image ${index + 1}`}
+                                                className="w-full h-auto object-cover cursor-pointer shadow-md rounded-sm transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-xl opacity-0 animate-fade-in"
+                                                onClick={() => handleClick(index)}
+                                                onLoad={(e) => e.currentTarget.classList.remove("opacity-0")}
+                                            />
+                                        </div>
+                                    );
+                                })}
                             </div>
 
-                            {/* 페이지네이션 */}
                             {totalPages > 1 && (
                                 <div className="flex justify-center items-center mt-12 space-x-2">
                                     <button
-                                        className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
-                                            currentPage === 1 
-                                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                        className={`px-4 py-2 rounded-lg ${
+                                            currentPage === 1
+                                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                         }`}
                                         onClick={() => handlePageChange(currentPage - 1)}
@@ -161,13 +158,13 @@ const GalleryComponent = () => {
                                     >
                                         이전
                                     </button>
-                                    
+
                                     <div className="flex space-x-1">
                                         {[...Array(totalPages)].map((_, i) => (
                                             <button
                                                 key={i + 1}
                                                 onClick={() => handlePageChange(i + 1)}
-                                                className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
+                                                className={`px-3 py-2 rounded-lg ${
                                                     currentPage === i + 1
                                                         ? 'bg-gray-800 text-white'
                                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -179,9 +176,9 @@ const GalleryComponent = () => {
                                     </div>
 
                                     <button
-                                        className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
-                                            currentPage === totalPages 
-                                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                        className={`px-4 py-2 rounded-lg ${
+                                            currentPage === totalPages
+                                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                         }`}
                                         onClick={() => handlePageChange(currentPage + 1)}
@@ -198,7 +195,6 @@ const GalleryComponent = () => {
                         </div>
                     )}
 
-                    {/* 마무리 메시지 */}
                     <div className="mt-16 text-center">
                         <div className="border-t border-gray-200 mb-12"></div>
                         <div className="space-y-6">
@@ -215,19 +211,25 @@ const GalleryComponent = () => {
                 </div>
             </div>
 
-            {/* Lightbox */}
-            {isOpen && currentIndex !== null && currentPhotos.length > 0 && currentPhotos[currentIndex] && (
+            {isOpen && currentIndex !== null && currentPhotos[currentIndex]?.originalUrl && (
                 <Lightbox
-                    mainSrc={currentPhotos[currentIndex].src}
-                    nextSrc={currentPhotos[(currentIndex + 1) % currentPhotos.length]?.src}
-                    prevSrc={currentPhotos[(currentIndex + currentPhotos.length - 1) % currentPhotos.length]?.src}
+                    mainSrc={currentPhotos[currentIndex].originalUrl}
+                    nextSrc={
+                        currentPhotos.length > 1
+                            ? currentPhotos[(currentIndex + 1) % currentPhotos.length]?.originalUrl
+                            : undefined
+                    }
+                    prevSrc={
+                        currentPhotos.length > 1
+                            ? currentPhotos[(currentIndex + currentPhotos.length - 1) % currentPhotos.length]?.originalUrl
+                            : undefined
+                    }
                     onCloseRequest={handleClose}
-                    onMovePrevRequest={() => moveTo((currentIndex + currentPhotos.length - 1) % currentPhotos.length)}
+                    onMovePrevRequest={() =>
+                        moveTo((currentIndex + currentPhotos.length - 1) % currentPhotos.length)
+                    }
                     onMoveNextRequest={() => moveTo((currentIndex + 1) % currentPhotos.length)}
-                    reactModalProps={{
-                        shouldReturnFocusAfterClose: false,
-                        ariaHideApp: false,
-                    }}
+                    reactModalProps={{ shouldReturnFocusAfterClose: false, ariaHideApp: false }}
                     onImageLoad={handleImageLoad}
                 />
             )}

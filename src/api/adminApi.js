@@ -135,3 +135,13 @@ export async function updateGalleryPhotoOrder(orderList) {
     });
     return data;
 }
+
+export async function fetchDashboardStats() {
+    const { data } = await adminClient.get('/dashboard');
+    return data;
+}
+
+export async function fetchDashboardCharts() {
+    const { data } = await adminClient.get('/dashboard/charts');
+    return data;
+}

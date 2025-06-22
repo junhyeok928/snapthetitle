@@ -1,6 +1,6 @@
 // src/App.js
-import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/common/PrivateRoute";
 
@@ -27,12 +27,26 @@ import FaqManagement     from "./components/admin/FaqManagement";
 import GuideManagement   from "./components/admin/GuideManagement";
 import PartnerManagement from "./components/admin/PartnerManagement";
 
+const TrackVisitWrapper = ({ children }) => {
+    const location = useLocation();
+
+    useEffect(() => {
+        fetch("/api/track/visit", { method: "POST" }).catch(() => {});
+    }, [location.pathname]); // 사용자가 사용자 페이지 내에서 이동할 때도 기록하고 싶다면 이렇게 가능
+
+    return children;
+};
+
 const App = () => (
     <AuthProvider>
         <BrowserRouter>
             <Routes>
                 {/* 사용자 레이아웃: Header/Footer 포함 */}
-                <Route element={<UserLayout />}>
+                <Route element={
+                    <TrackVisitWrapper>
+                        <UserLayout />
+                    </TrackVisitWrapper>
+                }>
                     <Route path="/"               element={<Home />} />
                     <Route path="/about"          element={<About />} />
                     <Route path="/gallery"        element={<Gallery />} />

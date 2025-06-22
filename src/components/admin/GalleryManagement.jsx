@@ -23,7 +23,6 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 
-
 const categories = ['바다', '들판', '스튜디오', '기타'];
 
 function SortableRow({ photo, onEdit, onDelete }) {
@@ -35,20 +34,20 @@ function SortableRow({ photo, onEdit, onDelete }) {
         backgroundColor: isDragging ? '#f0f9ff' : undefined,
     };
 
+    const thumb = photo.attachments.find(att => att.isThumbnail);
+    const original = photo.attachments.find(att => !att.isThumbnail);
+
     return (
         <tr ref={setNodeRef} style={style} className="hover:bg-gray-50 even:bg-white odd:bg-gray-50 transition-colors">
             <td className="px-4 py-3 text-sm text-gray-600">{photo.displayOrder ?? '-'}</td>
             <td className="px-4 py-3 text-sm text-gray-600">{photo.category}</td>
             <td className="px-4 py-3">
                 <div className="flex space-x-2">
-                    {photo.attachments.map((att, idx) => (
-                        <img
-                            key={idx}
-                            src={encodeURI(`${process.env.REACT_APP_API_URL}${att.fileUrl}`)}
-                            alt={`thumb-${idx}`}
-                            className="h-16 object-contain rounded"
-                        />
-                    ))}
+                    <img
+                        src={encodeURI(`${process.env.REACT_APP_API_URL}${thumb?.fileUrl || original?.fileUrl}`)}
+                        alt="thumb"
+                        className="h-16 object-contain rounded"
+                    />
                 </div>
             </td>
             <td className="px-4 py-3 text-sm space-y-1 max-w-xs">
@@ -68,7 +67,6 @@ function SortableRow({ photo, onEdit, onDelete }) {
                 })}
             </td>
             <td className="px-4 py-3 text-sm space-x-2 flex items-center">
-                {/* 드래그 핸들: 여기만 dnd-kit listeners, attributes 적용 */}
                 <div
                     {...listeners}
                     {...attributes}
@@ -77,7 +75,6 @@ function SortableRow({ photo, onEdit, onDelete }) {
                 >
                     &#9776;
                 </div>
-
                 <button
                     onClick={() => onEdit(photo)}
                     className="px-3 py-1 bg-yellow-400 rounded hover:bg-yellow-500"
@@ -95,7 +92,6 @@ function SortableRow({ photo, onEdit, onDelete }) {
     );
 }
 
-
 export default function GalleryManagement() {
     const [photos, setPhotos] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -103,11 +99,10 @@ export default function GalleryManagement() {
     const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
     const [editingId, setEditingId] = useState(null);
     const [category, setCategory] = useState('바다');
+    const [selectedCategory, setSelectedCategory] = useState('바다');
     const [files, setFiles] = useState([]);
     const [previews, setPreviews] = useState([]);
     const fileInputRef = useRef(null);
-
-    const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
     const filteredPhotos = photos
         .filter(photo => photo.category === selectedCategory)
@@ -130,6 +125,7 @@ export default function GalleryManagement() {
     const resetForm = () => {
         setEditingId(null);
         setCategory('바다');
+        setSelectedCategory('바다');
         setFiles([]);
         setPreviews([]);
         setUploadProgress({ current: 0, total: 0 });
@@ -144,24 +140,24 @@ export default function GalleryManagement() {
             return;
         }
 
-        // 새 파일 미리보기 URL 생성
         const newPreviews = selected.map(file => URL.createObjectURL(file));
 
         if (editingId) {
-            // 수정 모드면 미리보기, files 모두 새로 덮어쓰기
             setPreviews(newPreviews);
             setFiles(selected);
         } else {
-            // 추가 모드면 기존 상태에 새 파일 추가
             setPreviews(prev => [...prev, ...newPreviews]);
             setFiles(prev => [...prev, ...selected]);
         }
     };
 
-
     const handleSubmit = async e => {
         e.preventDefault();
-        if (!editingId && files.length === 0) return;
+
+        if (!editingId && files.length === 0) {
+            alert('이미지를 하나 이상 선택해주세요.');
+            return;
+        }
 
         setUploading(true);
         setUploadProgress({ current: 0, total: files.length });
@@ -190,13 +186,11 @@ export default function GalleryManagement() {
 
     const handleEdit = photo => {
         setEditingId(photo.id);
-        setCategory(photo.category || '바다');
-        setFiles([]);  // 새로 선택한 파일은 아직 없음
-
-        // 기존 첨부파일 URL 리스트
+        setCategory(photo.category);
+        setSelectedCategory(photo.category);
+        setFiles([]);
         const existingPreviews = photo.attachments.map(att => `${process.env.REACT_APP_API_URL}${att.fileUrl}`);
         setPreviews(existingPreviews);
-
         if (fileInputRef.current) fileInputRef.current.value = null;
     };
 
@@ -219,15 +213,11 @@ export default function GalleryManagement() {
         if (active.id !== over.id) {
             const oldIndex = filteredPhotos.findIndex(p => p.id === active.id);
             const newIndex = filteredPhotos.findIndex(p => p.id === over.id);
-
             let newFiltered = arrayMove(filteredPhotos, oldIndex, newIndex);
-
-            // displayOrder 즉시 업데이트
             newFiltered = newFiltered.map((photo, idx) => ({
                 ...photo,
                 displayOrder: idx + 1,
             }));
-
             const newPhotos = [...photos];
             let fi = 0;
             for (let i = 0; i < newPhotos.length; i++) {
@@ -236,11 +226,9 @@ export default function GalleryManagement() {
                     fi++;
                 }
             }
-
             setPhotos(newPhotos);
         }
     };
-
 
     const handleSaveOrder = async () => {
         try {
@@ -265,10 +253,11 @@ export default function GalleryManagement() {
                 {categories.map(cat => (
                     <button
                         key={cat}
-                        className={`px-4 py-2 rounded ${
-                            selectedCategory === cat ? 'bg-blue-600 text-white' : 'bg-gray-200'
-                        }`}
-                        onClick={() => setSelectedCategory(cat)}
+                        className={`px-4 py-2 rounded ${selectedCategory === cat ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+                        onClick={() => {
+                            setSelectedCategory(cat);
+                            setCategory(cat);
+                        }}
                     >
                         {cat}
                     </button>
@@ -278,8 +267,11 @@ export default function GalleryManagement() {
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow space-y-4">
                 <div className="space-y-4">
                     <select
-                        value={category}
-                        onChange={e => setCategory(e.target.value)}
+                        value={selectedCategory}
+                        onChange={e => {
+                            setSelectedCategory(e.target.value);
+                            setCategory(e.target.value);
+                        }}
                         className="w-48 p-2 border rounded"
                     >
                         {categories.map(cat => (
@@ -290,6 +282,13 @@ export default function GalleryManagement() {
                     <div
                         className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer hover:bg-gray-50 transition"
                         onClick={() => fileInputRef.current?.click()}
+                        onDrop={(e) => {
+                            e.preventDefault();
+                            const dt = e.dataTransfer;
+                            const event = { target: { files: dt.files } };
+                            handleFileChange(event);
+                        }}
+                        onDragOver={(e) => e.preventDefault()}
                     >
                         <p className="text-gray-600 mb-2">
                             <strong className="text-blue-600">클릭</strong>하거나 <strong className="text-blue-600">파일을 드래그</strong>하여 업로드하세요
@@ -304,7 +303,6 @@ export default function GalleryManagement() {
                         multiple
                         onChange={handleFileChange}
                         className="hidden"
-                        required={!editingId}
                         disabled={uploading}
                     />
 
@@ -376,7 +374,6 @@ export default function GalleryManagement() {
                             <table className="min-w-full divide-y divide-gray-200 table-auto">
                                 <thead className="bg-gray-100">
                                 <tr>
-                                    {/* "순서"로 바꿈 */}
                                     {['순서', '카테고리', '미리보기', 'URL', '조작'].map((h, idx) => (
                                         <th
                                             key={idx}
