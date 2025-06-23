@@ -38,39 +38,40 @@ function SortableRow({ photo, onEdit, onDelete }) {
     const original = photo.attachments.find(att => !att.isThumbnail);
 
     return (
-        <tr ref={setNodeRef} style={style} className="hover:bg-gray-50 even:bg-white odd:bg-gray-50 transition-colors">
+        <tr
+            ref={setNodeRef}
+            style={style}
+            className="hover:bg-gray-50 even:bg-white odd:bg-gray-50 transition-colors"
+        >
             <td className="px-4 py-3 text-sm text-gray-600">{photo.displayOrder ?? '-'}</td>
             <td className="px-4 py-3 text-sm text-gray-600">{photo.category}</td>
             <td className="px-4 py-3">
-                <div className="flex space-x-2">
-                    <img
-                        src={encodeURI(`${process.env.REACT_APP_API_URL}${thumb?.fileUrl || original?.fileUrl}`)}
-                        alt="thumb"
-                        className="h-16 object-contain rounded"
-                    />
-                </div>
+                <img
+                    src={thumb?.fileUrl || original?.fileUrl}
+                    alt="thumb"
+                    className="h-16 object-contain rounded"
+                />
             </td>
-            <td className="px-4 py-3 text-sm space-y-1 max-w-xs">
-                {photo.attachments.map((att, idx) => {
-                    const fullUrl = encodeURI(`${process.env.REACT_APP_API_URL}${att.fileUrl}`);
-                    return (
+            <td className="px-4 py-3 text-sm max-w-xs">
+                <div className="flex flex-col gap-1">
+                    {photo.attachments.map((att, idx) => (
                         <a
                             key={idx}
-                            href={fullUrl}
+                            href={att.fileUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 truncate hover:underline block"
+                            className="text-blue-600 hover:underline text-xs truncate"
                         >
-                            {fullUrl}
+                            {att.fileUrl}
                         </a>
-                    );
-                })}
+                    ))}
+                </div>
             </td>
-            <td className="px-4 py-3 text-sm space-x-2 flex items-center">
+            <td className="px-4 py-3 text-sm space-x-2 whitespace-nowrap">
                 <div
                     {...listeners}
                     {...attributes}
-                    className="cursor-move p-1 mr-2 text-gray-400 hover:text-gray-700"
+                    className="cursor-move inline-block p-1 mr-2 text-gray-400 hover:text-gray-700"
                     title="드래그하여 순서 변경"
                 >
                     &#9776;
@@ -91,6 +92,7 @@ function SortableRow({ photo, onEdit, onDelete }) {
         </tr>
     );
 }
+
 
 export default function GalleryManagement() {
     const [photos, setPhotos] = useState([]);
