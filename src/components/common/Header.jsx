@@ -44,44 +44,15 @@ const Header = () => {
                     
                     {/* 네비게이션 */}
                     <nav className="flex justify-center items-center py-2">
-                        <div className="flex space-x-12">
-                            <Link
-                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/')}`}
-                                to="/"
-                            >
-                                HOME
-                            </Link>
-                            <Link
-                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/about')}`}
-                                to="/about"
-                            >
-                                ABOUT
-                            </Link>
-                            <Link
-                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/gallery')}`}
-                                to="/gallery"
-                            >
-                                GALLERY
-                            </Link>
-                            <Link
-                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/product')}`}
-                                to="/product"
-                            >
-                                PRODUCT
-                            </Link>
-                            
+                        <div className="flex space-x-10">
+                            <Link className={`text-xs font-light tracking-wide transition-all duration-200 hover:text-black pb-0.5 ${isActive('/')}`} to="/">HOME</Link>
+                            <Link className={`text-xs font-light tracking-wide transition-all duration-200 hover:text-black pb-0.5 ${isActive('/about')}`} to="/about">ABOUT</Link>
+                            <Link className={`text-xs font-light tracking-wide transition-all duration-200 hover:text-black pb-0.5 ${isActive('/gallery')}`} to="/gallery">GALLERY</Link>
+                            <Link className={`text-xs font-light tracking-wide transition-all duration-200 hover:text-black pb-0.5 ${isActive('/product')}`} to="/product">PRODUCT</Link>
+
                             {/* Notice 드롭다운 메뉴 */}
-                            <div
-                                className="relative flex items-center"
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}
-                            >
-                                <button
-                                    className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/notice')}`}
-                                >
-                                    NOTICE
-                                </button>
-                                
+                            <div className="relative flex items-center" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
+                                <button className={`text-xs font-light tracking-wide transition-all duration-200 hover:text-black pb-0.5 ${isActive('/notice')}`}>NOTICE</button>
                                 {/* 드롭다운 메뉴 */}
                                 <div
                                     className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-40 bg-white border border-gray-100 rounded-lg shadow-lg transition-all duration-200 ${
@@ -90,19 +61,19 @@ const Header = () => {
                                 >
                                     <div className="py-2">
                                         <Link
-                                            className="block px-4 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
+                                            className="block px-4 py-2 text-xs text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
                                             to="/notice/faq"
                                         >
                                             FAQ
                                         </Link>
                                         <Link
-                                            className="block px-4 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
+                                            className="block px-4 py-2 text-xs text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
                                             to="/notice/partner"
                                         >
                                             제휴
                                         </Link>
                                         <Link
-                                            className="block px-4 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
+                                            className="block px-4 py-2 text-xs text-gray-600 hover:text-black hover:bg-gray-50 transition-colors duration-150"
                                             to="/notice/guide"
                                         >
                                             가이드
@@ -110,13 +81,8 @@ const Header = () => {
                                     </div>
                                 </div>
                             </div>
-                            
-                            <Link
-                                className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/reservation')}`}
-                                to="/reservation"
-                            >
-                                RESERVATION
-                            </Link>
+
+                            <Link className={`text-xs font-light tracking-wide transition-all duration-200 hover:text-black pb-0.5 ${isActive('/reservation')}`} to="/reservation">RESERVATION</Link>
                         </div>
                     </nav>
                 </div>

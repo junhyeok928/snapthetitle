@@ -13,9 +13,6 @@ const ImageSlider = ({ images }) => {
         return () => clearInterval(intervalRef.current);
     }, [images.length]);
 
-    useEffect(() => {
-        console.log('[슬라이더에 전달된 images]', images);
-    }, [images]);
     const handleChangeSlide = (newSlide) => {
         setCurrentSlide(newSlide);
         clearInterval(intervalRef.current);
