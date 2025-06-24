@@ -1,5 +1,4 @@
 import React from "react";
-import kakaoImg from '../../img/kakao.png';
 
 const Reservation = () => {
     return (
@@ -15,7 +14,7 @@ const Reservation = () => {
                     {/* 로고 이미지 */}
                     <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
                         <img
-                            src={kakaoImg}
+                            src="/kakao.png"
                             alt="kakao"
                             className="mx-auto w-full max-w-md"
                         />

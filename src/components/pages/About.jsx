@@ -1,4 +1,3 @@
-import aboutImg from '../../img/about.jpg';
 
 const About = () => {
     return (
@@ -6,7 +5,7 @@ const About = () => {
             <section className="text-gray-600 body-font order-1 lg:order-none">
                 <div className="container px-3 mx-auto">
                     <img
-                        src={aboutImg}
+                        src="/about.jpg"
                         alt="About"
                         className="mx-auto mb-8 w-full max-w-md"
                     />

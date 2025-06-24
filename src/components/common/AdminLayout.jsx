@@ -8,6 +8,7 @@ export default function AdminLayout() {
     const navigate   = useNavigate();
     const menuItems  = [
         { to: 'dashboard', label: '대시보드' },
+        { to: 'main',      label:'메인 관리'},
         { to: 'gallery',   label: '갤러리 관리' },
         { to: 'product',   label: '상품 관리' },
         { to: 'faq',       label: 'FAQ 관리' },

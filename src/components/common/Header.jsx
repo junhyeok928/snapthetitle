@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import logo from '../../img/logo_01.png';
 import { useState } from "react";
 
 const Header = () => {
@@ -32,19 +31,19 @@ const Header = () => {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+        <header className="sticky top-0 z-50 bg-white shadow-xs border-b border-gray-100">
             {/* PC menu */}
             <div className="hidden md:block">
-                <div className="container mx-auto px-6">
+                <div className="container mx-auto px-3">
                     {/* 로고 */}
-                    <div className="flex justify-center py-6 border-b border-gray-50">
-                        <Link to="/" className="transition-transform duration-200 hover:scale-105">
-                            <img alt="logo" src={logo} className="h-12 w-auto"/>
+                    <div className="flex justify-center py-4 border-b border-white">
+                        <Link to="/">
+                            <img alt="logo" src="/logo_01.png" className="h-8 w-auto" />
                         </Link>
                     </div>
                     
                     {/* 네비게이션 */}
-                    <nav className="flex justify-center items-center py-4">
+                    <nav className="flex justify-center items-center py-2">
                         <div className="flex space-x-12">
                             <Link
                                 className={`text-sm font-light tracking-wide transition-all duration-200 hover:text-black pb-1 ${isActive('/')}`}
@@ -73,7 +72,7 @@ const Header = () => {
                             
                             {/* Notice 드롭다운 메뉴 */}
                             <div
-                                className="relative"
+                                className="relative flex items-center"
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
                             >
@@ -125,7 +124,7 @@ const Header = () => {
 
             {/* 모바일 헤더 */}
             <div className="md:hidden">
-                <div className="flex items-center justify-between px-4 py-4">
+                <div className="flex items-center justify-between px-4 py-2">
                     {/* 햄버거 메뉴 버튼 */}
                     <button 
                         onClick={() => setMenuToggle(!menuToggle)}
@@ -152,7 +151,7 @@ const Header = () => {
                     
                     {/* 로고 */}
                     <Link to="/" className="flex-1 flex justify-center">
-                        <img alt="logo" src={logo} className="h-8 w-auto"/>
+                        <img alt="logo" src="/logo_01.png" className="h-6 w-auto"/>
                     </Link>
                     
                     {/* 공간 확보용 빈 div */}

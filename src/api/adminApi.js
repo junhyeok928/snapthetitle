@@ -148,3 +148,28 @@ export async function fetchDashboardCharts() {
     const { data } = await adminClient.get('/admin/dashboard/charts');
     return data;
 }
+
+// MainPhoto APIs (메인 슬라이더)
+export async function fetchMainPhotos() {
+    const { data } = await adminClient.get('/admin/main-photos');
+    return data;
+}
+
+export async function uploadMainPhoto(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    const { data } = await adminClient.post('/admin/main-photos', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    });
+    return data;
+}
+
+export async function updateMainPhotoOrder(orderList) {
+    await adminClient.post('/admin/main-photos/order', orderList, {
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+export async function deleteMainPhoto(id) {
+    await adminClient.delete(`/admin/main-photos/${id}`);
+}

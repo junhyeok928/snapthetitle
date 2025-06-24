@@ -6,11 +6,16 @@ const ImageSlider = ({ images }) => {
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
-            setCurrentSlide((prevSlide) => (prevSlide === images.length - 1 ? 0 : prevSlide + 1));
+            setCurrentSlide((prevSlide) =>
+                prevSlide === images.length - 1 ? 0 : prevSlide + 1
+            );
         }, 5000);
         return () => clearInterval(intervalRef.current);
     }, [images.length]);
 
+    useEffect(() => {
+        console.log('[슬라이더에 전달된 images]', images);
+    }, [images]);
     const handleChangeSlide = (newSlide) => {
         setCurrentSlide(newSlide);
         clearInterval(intervalRef.current);
@@ -25,22 +30,15 @@ const ImageSlider = ({ images }) => {
     };
 
     return (
-        <div className="relative relative2">
+        <div className="relative relative2 overflow-hidden w-full h-[500px]">
             {images.map((image, index) => (
-                <div
+                <img
                     key={index}
-                    style={{
-                        backgroundImage: `url(${image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        opacity: index === currentSlide ? 1 : 0,
-                        transition: 'opacity 0.5s ease-in-out',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                    }}
+                    src={image}
+                    alt={`slide-${index}`}
+                    className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+                        index === currentSlide ? 'opacity-100' : 'opacity-0'
+                    }`}
                 />
             ))}
             {/* 이전 버튼 */}

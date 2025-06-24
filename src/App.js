@@ -26,6 +26,7 @@ import ProductManagement from "./components/admin/ProductManagement";
 import FaqManagement     from "./components/admin/FaqManagement";
 import GuideManagement   from "./components/admin/GuideManagement";
 import PartnerManagement from "./components/admin/PartnerManagement";
+import MainManagement    from "./components/admin/MainManagement";
 
 const TrackVisitWrapper = ({ children }) => {
     const location = useLocation();
@@ -70,6 +71,7 @@ const App = () => (
                     }
                 >
                     <Route index            element={<Navigate to="dashboard" replace />} />
+                    <Route path="main"      element={<MainManagement />} />
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="gallery"   element={<GalleryManagement />} />
                     <Route path="product"   element={<ProductManagement />} />
