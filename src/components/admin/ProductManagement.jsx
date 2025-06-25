@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     fetchProducts,
     createProduct,
     updateProduct,
     deleteProduct
-} from '../../api/adminApi';
-import { useAuth } from '../../contexts/AuthContext';
+} from 'api/adminApi';
+import { useAuth } from 'contexts/AuthContext';
+import { useSafeAsyncEffect } from 'hooks/useSafeAsyncEffect ';
 
 export default function ProductManagement() {
     const { user } = useAuth();
@@ -22,7 +23,6 @@ export default function ProductManagement() {
         options: [{ label: '', value: '', displayOrder: 0 }]
     });
 
-    useEffect(() => { load(form.year); }, []);
     const load = async year => {
         setLoading(true);
         try {
@@ -37,6 +37,9 @@ export default function ProductManagement() {
             setLoading(false);
         }
     };
+
+    // ✅ useEffect → useSafeAsyncEffect
+    useSafeAsyncEffect(() => load(form.year), []);
 
     const resetForm = () => {
         setEditingId(null);
@@ -75,7 +78,7 @@ export default function ProductManagement() {
             description: prod.description || '',
             imageUrl: prod.imageUrl || '',
             displayOrder: prod.displayOrder,
-            options: prod.options.length ? prod.options : [{ label:'', value:'', displayOrder:0 }]
+            options: prod.options.length ? prod.options : [{ label: '', value: '', displayOrder: 0 }]
         });
     };
 
@@ -103,8 +106,10 @@ export default function ProductManagement() {
         opts[idx][key] = key === 'displayOrder' ? parseInt(val, 10) : val;
         setForm(f => ({ ...f, options: opts }));
     };
-    const addOption = () => setForm(f => ({ ...f, options: [...f.options, { label:'', value:'', displayOrder:0 }] }));
-    const removeOption = idx => setForm(f => ({ ...f, options: f.options.filter((_, i) => i !== idx) }));
+    const addOption = () =>
+        setForm(f => ({ ...f, options: [...f.options, { label: '', value: '', displayOrder: 0 }] }));
+    const removeOption = idx =>
+        setForm(f => ({ ...f, options: f.options.filter((_, i) => i !== idx) }));
 
     return (
         <div className="space-y-6">
@@ -226,11 +231,8 @@ export default function ProductManagement() {
                     <table className="min-w-full divide-y divide-gray-200 table-auto">
                         <thead className="bg-gray-100">
                         <tr>
-                            {['ID', '연도', '상품명', '설명','가격', '순서', '옵션 수', '조작'].map((title, i) => (
-                                <th
-                                    key={i}
-                                    className="px-4 py-2 text-left text-sm font-medium text-gray-700"
-                                >
+                            {['ID', '연도', '상품명', '설명', '가격', '순서', '옵션 수', '조작'].map((title, i) => (
+                                <th key={i} className="px-4 py-2 text-left text-sm font-medium text-gray-700">
                                     {title}
                                 </th>
                             ))}

@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     fetchMainPhotos,
     uploadMainPhoto,
     deleteMainPhoto,
     updateMainPhotoOrder,
-} from '../../api/adminApi';
+} from 'api/adminApi';
+import { useSafeAsyncEffect } from 'hooks/useSafeAsyncEffect ';
 
 import {
     DndContext,
@@ -91,9 +92,8 @@ export default function MainManagement() {
         setPhotos(data.sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0)));
     };
 
-    useEffect(() => {
-        loadPhotos();
-    }, []);
+    // ✅ 401 대응 공통 커스텀 훅 적용
+    useSafeAsyncEffect(loadPhotos, []);
 
     const handleFileChange = e => {
         const selected = Array.from(e.target.files);

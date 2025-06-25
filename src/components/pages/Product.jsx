@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProductYears, fetchProducts } from '../../api/publicApi';
+import { fetchProductYears, fetchProducts } from 'api/publicApi';
 
 function Product() {
     const [years, setYears] = useState([]);

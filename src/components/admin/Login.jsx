@@ -1,7 +1,7 @@
 // src/components/admin/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from 'contexts/AuthContext';
 
 export default function Login() {
     const [username, setUsername] = useState('');

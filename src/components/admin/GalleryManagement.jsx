@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     fetchGalleryPhotos,
     createGalleryPhotoWithFiles,
     deleteGalleryPhoto,
     updateGalleryPhotoWithFiles,
     updateGalleryPhotoOrder,
-} from '../../api/adminApi';
+} from 'api/adminApi';
+import { useSafeAsyncEffect } from 'hooks/useSafeAsyncEffect ';
 
 import {
     DndContext,
@@ -93,7 +94,6 @@ function SortableRow({ photo, onEdit, onDelete }) {
     );
 }
 
-
 export default function GalleryManagement() {
     const [photos, setPhotos] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -120,9 +120,7 @@ export default function GalleryManagement() {
         }
     };
 
-    useEffect(() => {
-        loadPhotos();
-    }, []);
+    useSafeAsyncEffect(loadPhotos, []);
 
     const resetForm = () => {
         setEditingId(null);

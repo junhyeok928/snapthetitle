@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     fetchFaqs,
     createFaq,
     updateFaq,
     deleteFaq
-} from '../../api/adminApi';
+} from 'api/adminApi';
+import { useSafeAsyncEffect } from 'hooks/useSafeAsyncEffect ';
 
 export default function FaqManagement() {
     const [faqs, setFaqs] = useState([]);
@@ -22,7 +23,8 @@ export default function FaqManagement() {
         }
     };
 
-    useEffect(() => { loadFaqs(); }, []);
+    // ✅ useSafeAsyncEffect로 대체
+    useSafeAsyncEffect(loadFaqs, []);
 
     const resetForm = () => {
         setEditingId(null);
@@ -33,8 +35,11 @@ export default function FaqManagement() {
         e.preventDefault();
         setLoading(true);
         try {
-            if (editingId) await updateFaq(editingId, form);
-            else await createFaq(form);
+            if (editingId) {
+                await updateFaq(editingId, form);
+            } else {
+                await createFaq(form);
+            }
             await loadFaqs();
             resetForm();
         } finally {
@@ -61,6 +66,7 @@ export default function FaqManagement() {
     return (
         <div className="space-y-6">
             <h1 className="text-2xl font-semibold">FAQ 관리</h1>
+
             {/* Form */}
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -100,6 +106,7 @@ export default function FaqManagement() {
                     )}
                 </div>
             </form>
+
             {/* List */}
             {loading ? (
                 <p className="text-center py-10 text-gray-500">로딩 중...</p>

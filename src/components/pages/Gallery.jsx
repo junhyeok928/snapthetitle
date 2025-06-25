@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Lightbox from "react-image-lightbox";
-import { fetchGalleryPhotos } from "../../api/publicApi";
+import { fetchGalleryPhotos } from "api/publicApi";
 import "react-image-lightbox/style.css";
-import "../../css/GalleryComponent.css";
+import "css/GalleryComponent.css";
 
 const ITEMS_PER_PAGE = 9;
 

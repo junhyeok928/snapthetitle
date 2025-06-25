@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     fetchGuides,
     createGuide,
     updateGuide,
     deleteGuide
-} from '../../api/adminApi';
+} from 'api/adminApi';
+import { useSafeAsyncEffect } from 'hooks/useSafeAsyncEffect ';
 
 export default function GuideManagement() {
     const [guides, setGuides] = useState([]);
@@ -28,7 +29,8 @@ export default function GuideManagement() {
         }
     };
 
-    useEffect(() => { loadGuides(); }, []);
+    // ✅ useSafeAsyncEffect로 공통 401 처리
+    useSafeAsyncEffect(loadGuides, []);
 
     const resetForm = () => {
         setEditingId(null);
@@ -98,7 +100,7 @@ export default function GuideManagement() {
                     />
                     <input
                         type="number" placeholder="순서" min={1} value={form.displayOrder}
-                        onChange={e => setForm({ ...form, displayOrder: Math.max(1, parseInt(e.target.value,10)) })}
+                        onChange={e => setForm({ ...form, displayOrder: Math.max(1, parseInt(e.target.value, 10)) })}
                         className="p-2 border rounded" required
                     />
                     <input
@@ -124,15 +126,15 @@ export default function GuideManagement() {
                     {form.details.map((d, idx) => (
                         <div key={idx} className="flex space-x-2 mb-2">
                             <input type="text" placeholder="소제목" value={d.subtitle}
-                                   onChange={e => updateDetail(idx,'subtitle',e.target.value)}
+                                   onChange={e => updateDetail(idx, 'subtitle', e.target.value)}
                                    className="p-2 border rounded flex-1" />
                             <input type="text" placeholder="설명" value={d.description}
-                                   onChange={e => updateDetail(idx,'description',e.target.value)}
+                                   onChange={e => updateDetail(idx, 'description', e.target.value)}
                                    className="p-2 border rounded flex-1" />
                             <input type="number" placeholder="순서" min={1} value={d.displayOrder}
-                                   onChange={e => updateDetail(idx,'displayOrder',e.target.value)}
+                                   onChange={e => updateDetail(idx, 'displayOrder', e.target.value)}
                                    className="p-2 border rounded w-20" />
-                            <button type="button" onClick={()=>removeDetail(idx)}
+                            <button type="button" onClick={() => removeDetail(idx)}
                                     className="px-2 bg-red-400 text-white rounded">
                                 삭제
                             </button>
@@ -162,25 +164,29 @@ export default function GuideManagement() {
                     <table className="min-w-full divide-y divide-gray-200 table-auto">
                         <thead className="bg-gray-100">
                         <tr>
-                            {['ID','카테고리','순서','내용','링크','상세 개수','조작'].map((h,i)=>(
+                            {['ID', '카테고리', '순서', '내용', '링크', '상세 개수', '조작'].map((h, i) => (
                                 <th key={i} className="px-4 py-2 text-left text-sm font-medium text-gray-700">{h}</th>
                             ))}
                         </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                        {guides.map(g=> (
+                        {guides.map(g => (
                             <tr key={g.id} className="hover:bg-gray-50 even:bg-white odd:bg-gray-50 transition-colors">
                                 <td className="px-4 py-3 text-sm text-gray-600">{g.id}</td>
                                 <td className="px-4 py-3 text-sm text-gray-600">{g.category}</td>
                                 <td className="px-4 py-3 text-sm text-gray-600">{g.displayOrder}</td>
                                 <td className="px-4 py-3 text-sm text-gray-800 truncate max-w-md">{g.content}</td>
                                 <td className="px-4 py-3 text-sm text-blue-600 hover:underline">
-                                    {g.linkUrl ? (<a href={g.linkUrl} target="_blank" rel="noopener noreferrer">{g.linkText||g.linkUrl}</a>) : '-' }
+                                    {g.linkUrl ? (
+                                        <a href={g.linkUrl} target="_blank" rel="noopener noreferrer">
+                                            {g.linkText || g.linkUrl}
+                                        </a>
+                                    ) : '-'}
                                 </td>
                                 <td className="px-4 py-3 text-sm text-gray-600">{g.details.length}</td>
                                 <td className="px-4 py-3 text-sm space-x-2">
-                                    <button onClick={()=>handleEdit(g)} className="px-3 py-1 bg-yellow-400 rounded hover:bg-yellow-500">수정</button>
-                                    <button onClick={()=>handleDelete(g.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">삭제</button>
+                                    <button onClick={() => handleEdit(g)} className="px-3 py-1 bg-yellow-400 rounded hover:bg-yellow-500">수정</button>
+                                    <button onClick={() => handleDelete(g.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">삭제</button>
                                 </td>
                             </tr>
                         ))}

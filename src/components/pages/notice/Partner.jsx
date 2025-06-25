@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchPartners } from "../../../api/publicApi"; // 실제 API 함수 추가 필요
+import { fetchPartners } from "api/publicApi"; // 실제 API 함수 추가 필요
 
 const Partnership = () => {
     const [partners, setPartners] = useState([]);

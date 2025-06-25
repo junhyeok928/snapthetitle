@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchFaqs } from '../../../api/publicApi'; // API 호출 함수는 /api/faqs 엔드포인트에 연결되어 있어야 함
+import { fetchFaqs } from 'api/publicApi'; // API 호출 함수는 /api/faqs 엔드포인트에 연결되어 있어야 함
 
 function Faq() {
     const [faqs, setFaqs] = useState([]);

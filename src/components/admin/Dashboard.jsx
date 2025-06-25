@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {fetchDashboardCharts, fetchDashboardStats} from '../../api/adminApi';
+import {useSafeAsyncEffect} from 'hooks/useSafeAsyncEffect ';
+import {fetchDashboardCharts, fetchDashboardStats} from 'api/adminApi';
 import {
     LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer,
     PieChart, Pie, Cell, Legend
@@ -17,14 +18,14 @@ export default function Dashboard() {
     });
     const [chartData, setChartData] = useState({ dailyVisitors: [], refererStats: [] });
 
-    useEffect(() => {
-        fetchDashboardStats()
-            .then(setStats)
-            .catch((err) => console.error('대시보드 데이터 불러오기 실패:', err));
+    useSafeAsyncEffect(async () => {
+        const data = await fetchDashboardStats();
+        setStats(data);
     }, []);
 
-    useEffect(() => {
-        fetchDashboardCharts().then(setChartData).catch(console.error);
+    useSafeAsyncEffect(async () => {
+        const chartData = await fetchDashboardCharts();
+        setChartData(chartData);
     }, []);
 
     const topCards = [

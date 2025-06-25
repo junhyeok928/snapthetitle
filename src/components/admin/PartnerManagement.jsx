@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     fetchPartners,
     createPartner,
     updatePartner,
     deletePartner
-} from '../../api/adminApi';
+} from 'api/adminApi';
+import { useSafeAsyncEffect } from 'hooks/useSafeAsyncEffect ';
 
 export default function PartnerManagement() {
     const [partners, setPartners] = useState([]);
@@ -22,7 +23,8 @@ export default function PartnerManagement() {
         }
     };
 
-    useEffect(() => { loadPartners(); }, []);
+    // ✅ 401 공통 처리 커스텀 훅 사용
+    useSafeAsyncEffect(loadPartners, []);
 
     const resetForm = () => {
         setEditingId(null);
@@ -93,7 +95,7 @@ export default function PartnerManagement() {
                     />
                     <input
                         type="number" placeholder="순서" min={1} value={form.displayOrder}
-                        onChange={e => setForm({ ...form, displayOrder: Math.max(1, parseInt(e.target.value,10)) })}
+                        onChange={e => setForm({ ...form, displayOrder: Math.max(1, parseInt(e.target.value, 10)) })}
                         className="p-2 border rounded" required
                     />
                 </div>
@@ -113,25 +115,27 @@ export default function PartnerManagement() {
                     <table className="min-w-full divide-y divide-gray-200 table-auto">
                         <thead className="bg-gray-100">
                         <tr>
-                            {['ID','카테고리','이름','인스타','URL','순서','조작'].map((h,i)=>(
+                            {['ID', '카테고리', '이름', '인스타', 'URL', '순서', '조작'].map((h, i) => (
                                 <th key={i} className="px-4 py-2 text-left text-sm font-medium text-gray-700">{h}</th>
                             ))}
                         </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                        {partners.map(p=> (
+                        {partners.map(p => (
                             <tr key={p.id} className="hover:bg-gray-50 even:bg-white odd:bg-gray-50 transition-colors">
                                 <td className="px-4 py-3 text-sm text-gray-600">{p.id}</td>
                                 <td className="px-4 py-3 text-sm text-gray-600">{p.category}</td>
                                 <td className="px-4 py-3 text-sm text-gray-800">{p.name}</td>
                                 <td className="px-4 py-3 text-sm text-gray-600">{p.instagram}</td>
                                 <td className="px-4 py-3 text-sm text-blue-600 hover:underline truncate max-w-xs">
-                                    {p.linkUrl ? (<a href={p.linkUrl} target="_blank" rel="noopener noreferrer">{p.linkUrl}</a>) : '-'}
+                                    {p.linkUrl ? (
+                                        <a href={p.linkUrl} target="_blank" rel="noopener noreferrer">{p.linkUrl}</a>
+                                    ) : '-'}
                                 </td>
                                 <td className="px-4 py-3 text-sm text-gray-600">{p.displayOrder}</td>
                                 <td className="px-4 py-3 text-sm space-x-2">
-                                    <button onClick={()=>handleEdit(p)} className="px-3 py-1 bg-yellow-400 rounded hover:bg-yellow-500">수정</button>
-                                    <button onClick={()=>handleDelete(p.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">삭제</button>
+                                    <button onClick={() => handleEdit(p)} className="px-3 py-1 bg-yellow-400 rounded hover:bg-yellow-500">수정</button>
+                                    <button onClick={() => handleDelete(p.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">삭제</button>
                                 </td>
                             </tr>
                         ))}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchGuides } from '../../../api/publicApi'; // API 함수
+import { fetchGuides } from 'api/publicApi'; // API 함수
 
 function Guide() {
     const [guideItems, setGuideItems] = useState([]);
