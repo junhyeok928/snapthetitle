@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {useSafeAsyncEffect} from 'hooks/useSafeAsyncEffect ';
 import {fetchDashboardCharts, fetchDashboardStats} from 'api/adminApi';
 import {

@@ -33,10 +33,11 @@ const ImageSlider = ({ images }) => {
                     key={index}
                     src={image}
                     alt={`slide-${index}`}
-                    className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+                    className={`absolute top-0 left-1/2 transform -translate-x-1/2 h-full max-w-[800px] object-cover transition-opacity duration-500 ${
                         index === currentSlide ? 'opacity-100' : 'opacity-0'
                     }`}
                 />
+
             ))}
             {/* 이전 버튼 */}
             <button

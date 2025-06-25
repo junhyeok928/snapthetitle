@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
-import Lightbox from "react-image-lightbox";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 import { fetchGalleryPhotos } from "api/publicApi";
-import "react-image-lightbox/style.css";
-import "css/GalleryComponent.css";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -10,7 +9,6 @@ const GalleryComponent = () => {
     const [allPhotos, setAllPhotos] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState('전체');
 
@@ -46,17 +44,7 @@ const GalleryComponent = () => {
         const actualIndex = (currentPage - 1) * ITEMS_PER_PAGE + index;
         setCurrentIndex(actualIndex);
         setIsOpen(true);
-        setIsLoading(true);
     }, [currentPage]);
-
-    const handleClose = useCallback(() => {
-        setIsOpen(false);
-        setTimeout(() => setCurrentIndex(null), 300);
-        setIsLoading(true);
-    }, []);
-
-    const moveTo = (newIndex) => setCurrentIndex(newIndex);
-    const handleImageLoad = () => setIsLoading(false);
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
@@ -211,30 +199,17 @@ const GalleryComponent = () => {
                 </div>
             </div>
 
-            {isOpen && currentIndex !== null && currentPhotos[currentIndex]?.originalUrl && (
+            {/* Lightbox 영역 */}
+            {isOpen && currentPhotos.length > 0 && (
                 <Lightbox
-                    mainSrc={currentPhotos[currentIndex].originalUrl}
-                    nextSrc={
-                        currentPhotos.length > 1
-                            ? currentPhotos[(currentIndex + 1) % currentPhotos.length]?.originalUrl
-                            : undefined
-                    }
-                    prevSrc={
-                        currentPhotos.length > 1
-                            ? currentPhotos[(currentIndex + currentPhotos.length - 1) % currentPhotos.length]?.originalUrl
-                            : undefined
-                    }
-                    onCloseRequest={handleClose}
-                    onMovePrevRequest={() =>
-                        moveTo((currentIndex + currentPhotos.length - 1) % currentPhotos.length)
-                    }
-                    onMoveNextRequest={() => moveTo((currentIndex + 1) % currentPhotos.length)}
-                    reactModalProps={{ shouldReturnFocusAfterClose: false, ariaHideApp: false }}
-                    onImageLoad={handleImageLoad}
+                    open={isOpen}
+                    close={() => setIsOpen(false)}
+                    index={currentIndex}
+                    slides={currentPhotos.map(photo => ({
+                        src: photo.originalUrl
+                    }))}
                 />
             )}
-
-            {isLoading && <div className="loading-spinner"></div>}
         </section>
     );
 };

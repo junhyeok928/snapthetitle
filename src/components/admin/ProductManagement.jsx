@@ -5,11 +5,9 @@ import {
     updateProduct,
     deleteProduct
 } from 'api/adminApi';
-import { useAuth } from 'contexts/AuthContext';
 import { useSafeAsyncEffect } from 'hooks/useSafeAsyncEffect ';
 
 export default function ProductManagement() {
-    const { user } = useAuth();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [editingId, setEditingId] = useState(null);
